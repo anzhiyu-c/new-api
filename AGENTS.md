@@ -135,3 +135,15 @@ For request structs that are parsed from client JSON and then re-marshaled to up
 ### Rule 7: Billing Expression System — Read `pkg/billingexpr/expr.md`
 
 When working on tiered/dynamic billing (expression-based pricing), you MUST read `pkg/billingexpr/expr.md` first. It documents the design philosophy, expression language (variables, functions, examples), full system architecture (editor → storage → pre-consume → settlement → log display), token normalization rules (`p`/`c` auto-exclusion), quota conversion, and expression versioning. All code changes to the billing expression system must follow the patterns described in that document.
+
+### Rule 8: Docker Publishing Target and Fork Versioning — Maintained Fork
+
+This maintained fork publishes Docker Hub images to `anheyu/new-api`.
+
+- Release workflows and deployment configs in this fork MUST use `anheyu/new-api` as the Docker Hub image repository.
+- Do NOT publish to upstream `calciumion/new-api` unless explicitly requested for upstream maintenance.
+- Before choosing any release tag, inspect existing Docker Hub tags for `anheyu/new-api` and compare them with local Git tags.
+- Fork-maintained Docker releases MUST NOT occupy upstream bare semver or upstream rc tags such as `v1.0.0`, `v1.0.0-rc.9`, or similar, unless the release is an intentional exact mirror of that upstream tag and commit.
+- For fork-specific changes, use a fork-scoped tag that cannot collide with future upstream releases, for example `v1.0.0-rc.8-anheyu.1` or `anheyu-YYYYMMDD`.
+- `latest` may point to the newest maintained fork image, but it is only a moving convenience tag and MUST NOT be treated as the immutable release identifier.
+- Keep protected project name, package paths, copyright notices, and organization attribution intact; this rule only defines the Docker Hub namespace and versioning policy used by this maintained fork.

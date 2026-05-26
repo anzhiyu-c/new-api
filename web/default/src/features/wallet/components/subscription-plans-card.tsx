@@ -20,7 +20,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Crown, RefreshCw, Sparkles, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
-import { formatQuota } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -52,7 +51,12 @@ import {
   updateBillingPreference,
 } from '@/features/subscriptions/api'
 import { SubscriptionPurchaseDialog } from '@/features/subscriptions/components/dialogs/subscription-purchase-dialog'
-import { formatDuration, formatResetPeriod } from '@/features/subscriptions/lib'
+import {
+  formatDuration,
+  formatResetPeriod,
+  formatSubscriptionPriceCNY,
+  formatSubscriptionQuotaUSD,
+} from '@/features/subscriptions/lib'
 import type {
   PlanRecord,
   UserSubscriptionRecord,
@@ -470,9 +474,9 @@ export function SubscriptionPlansCard({
                             <TooltipTrigger
                               render={<span className='cursor-help' />}
                             >
-                              {formatQuota(usedAmount)}/
-                              {formatQuota(totalAmount)} · {t('Remaining')}{' '}
-                              {formatQuota(remainAmount)}
+                              {formatSubscriptionQuotaUSD(usedAmount)}/
+                              {formatSubscriptionQuotaUSD(totalAmount)} ·{' '}
+                              {t('Remaining')} {formatSubscriptionQuotaUSD(remainAmount)}
                             </TooltipTrigger>
                             <TooltipContent>
                               {t('Raw Quota')}: {usedAmount}/{totalAmount} ·{' '}
@@ -512,7 +516,7 @@ export function SubscriptionPlansCard({
               const plan = p?.plan
               if (!plan) return null
               const totalAmount = Number(plan.total_amount || 0)
-              const price = Number(plan.price_amount || 0).toFixed(2)
+              const price = formatSubscriptionPriceCNY(Number(plan.price_amount || 0))
               const isPopular = index === 0 && plans.length > 1
               const limit = Number(plan.max_purchase_per_user || 0)
               const count = planPurchaseCountMap.get(plan.id) || 0
@@ -524,7 +528,7 @@ export function SubscriptionPlansCard({
                   ? `${t('Quota Reset')}: ${formatResetPeriod(plan, t)}`
                   : null,
                 totalAmount > 0
-                  ? `${t('Total Quota')}: ${formatQuota(totalAmount)}`
+                  ? `${t('Total Quota')}: ${formatSubscriptionQuotaUSD(totalAmount)}`
                   : `${t('Total Quota')}: ${t('Unlimited')}`,
                 limit > 0 ? `${t('Purchase Limit')}: ${limit}` : null,
                 plan.upgrade_group
@@ -566,7 +570,7 @@ export function SubscriptionPlansCard({
 
                     <div className='py-2'>
                       <span className='text-primary text-2xl font-bold'>
-                        ${price}
+                        {price}
                       </span>
                     </div>
 

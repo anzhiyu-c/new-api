@@ -18,7 +18,39 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import type { TFunction } from 'i18next'
 import dayjs from '@/lib/dayjs'
+import { getCurrencyDisplay } from '@/lib/currency'
 import type { SubscriptionPlan } from '../types'
+
+function formatDecimalAmount(value: number, maxDigits: number): string {
+  return new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: maxDigits,
+  }).format(value)
+}
+
+export function formatSubscriptionPriceCNY(
+  amount: number | null | undefined
+): string {
+  if (amount == null || Number.isNaN(amount)) return '-'
+
+  return `¥${new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount)}`
+}
+
+export function formatSubscriptionQuotaUSD(
+  quota: number | null | undefined
+): string {
+  if (quota == null || Number.isNaN(quota)) return '-'
+
+  const { config } = getCurrencyDisplay()
+  const quotaPerUnit = config.quotaPerUnit > 0 ? config.quotaPerUnit : 500000
+  const amountUSD = quota / quotaPerUnit
+  const digits = Math.abs(amountUSD) >= 1 ? 2 : 4
+
+  return `$${formatDecimalAmount(amountUSD, digits)}`
+}
 
 export function formatDuration(
   plan: Partial<SubscriptionPlan>,

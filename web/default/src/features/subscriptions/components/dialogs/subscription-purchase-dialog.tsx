@@ -44,7 +44,12 @@ import {
   paySubscriptionEpay,
   paySubscriptionWaffoPancake,
 } from '../../api'
-import { formatDuration, formatResetPeriod } from '../../lib'
+import {
+  formatDuration,
+  formatResetPeriod,
+  formatSubscriptionPriceCNY,
+  formatSubscriptionQuotaUSD,
+} from '../../lib'
 import type { PlanRecord } from '../../types'
 
 interface PaymentMethod {
@@ -94,7 +99,7 @@ export function SubscriptionPurchaseDialog(props: Props) {
     selectedEpayMethod ||
     t('Select payment method')
   const totalAmount = Number(plan.total_amount || 0)
-  const price = Number(plan.price_amount || 0).toFixed(2)
+  const price = formatSubscriptionPriceCNY(Number(plan.price_amount || 0))
   const limitReached =
     (props.purchaseLimit || 0) > 0 &&
     (props.purchaseCount || 0) >= (props.purchaseLimit || 0)
@@ -257,7 +262,9 @@ export function SubscriptionPurchaseDialog(props: Props) {
               </span>
               <span className='flex items-center gap-1 text-sm'>
                 <Package className='h-3.5 w-3.5' />
-                {totalAmount > 0 ? totalAmount : t('Unlimited')}
+                {totalAmount > 0
+                  ? formatSubscriptionQuotaUSD(totalAmount)
+                  : t('Unlimited')}
               </span>
             </div>
             {plan.upgrade_group && (
@@ -271,7 +278,7 @@ export function SubscriptionPurchaseDialog(props: Props) {
             <Separator />
             <div className='flex items-center justify-between'>
               <span className='text-sm font-medium'>{t('Amount Due')}</span>
-              <span className='text-primary text-lg font-bold'>${price}</span>
+              <span className='text-primary text-lg font-bold'>{price}</span>
             </div>
           </div>
 
