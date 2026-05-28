@@ -30,6 +30,7 @@ type PublicLayoutProps = {
   showNotifications?: boolean
   logo?: React.ReactNode
   siteName?: string
+  hideSiteName?: boolean
 }
 
 export function PublicLayout(props: PublicLayoutProps) {
@@ -43,6 +44,7 @@ export function PublicLayout(props: PublicLayoutProps) {
         showNotifications={props.showNotifications}
         logo={props.logo}
         siteName={props.siteName}
+        hideSiteName={props.hideSiteName}
         {...props.headerProps}
       />
 

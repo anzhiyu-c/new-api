@@ -97,7 +97,12 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .waho-story-spine-fill {
-  background: linear-gradient(180deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  background: linear-gradient(
+    180deg,
+    var(--waho-cyan),
+    var(--waho-blue),
+    var(--waho-pink)
+  );
 }
 
 .waho-story-dot {
@@ -118,7 +123,9 @@ For commercial licensing, please contact support@quantumnous.com
 .waho-story-dot.is-active {
   border-color: rgba(98, 239, 255, 0.88);
   background: var(--waho-cyan);
-  box-shadow: 0 0 0 4px rgba(98, 239, 255, 0.12), 0 0 20px rgba(98, 239, 255, 0.45);
+  box-shadow:
+    0 0 0 4px rgba(98, 239, 255, 0.12),
+    0 0 20px rgba(98, 239, 255, 0.45);
   transform: scale(1.35);
 }
 
@@ -135,7 +142,7 @@ For commercial licensing, please contact support@quantumnous.com
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  padding: 6rem 2rem 2.125rem;
+  padding: 7rem 2rem 2.125rem;
 }
 
 .waho-hero-bg {
@@ -143,16 +150,36 @@ For commercial licensing, please contact support@quantumnous.com
   inset: 0;
   z-index: -3;
   background:
-    radial-gradient(circle at 50% 76%, rgba(98, 239, 255, 0.3), transparent 22%),
-    radial-gradient(circle at 77% 24%, rgba(181, 1, 167, 0.11), transparent 31%),
-    radial-gradient(circle at 18% 30%, rgba(22, 193, 114, 0.08), transparent 28%),
+    radial-gradient(
+      circle at 50% 76%,
+      rgba(98, 239, 255, 0.3),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 77% 24%,
+      rgba(181, 1, 167, 0.11),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 18% 30%,
+      rgba(22, 193, 114, 0.08),
+      transparent 28%
+    ),
     linear-gradient(180deg, var(--waho-bg) 0%, #eaf1f8 100%);
 }
 
 .dark .waho-hero-bg {
   background:
-    radial-gradient(circle at 50% 76%, rgba(98, 239, 255, 0.16), transparent 26%),
-    radial-gradient(circle at 77% 24%, rgba(181, 1, 167, 0.12), transparent 34%),
+    radial-gradient(
+      circle at 50% 76%,
+      rgba(98, 239, 255, 0.16),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 77% 24%,
+      rgba(181, 1, 167, 0.12),
+      transparent 34%
+    ),
     linear-gradient(180deg, #151719 0%, #111827 100%);
 }
 
@@ -165,7 +192,13 @@ For commercial licensing, please contact support@quantumnous.com
     linear-gradient(90deg, rgba(16, 18, 20, 0.035) 1px, transparent 1px);
   background-position: center;
   background-size: 48px 48px;
-  mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 20%,
+    #000 86%,
+    transparent 100%
+  );
   opacity: 0.72;
 }
 
@@ -233,6 +266,7 @@ For commercial licensing, please contact support@quantumnous.com
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: left center;
 }
 
 .waho-engine-glow {
@@ -277,7 +311,9 @@ For commercial licensing, please contact support@quantumnous.com
 
 .waho-art-bead {
   background: var(--waho-cyan);
-  box-shadow: 0 0 0 7px rgba(98, 239, 255, 0.12), 0 0 28px rgba(98, 239, 255, 0.8);
+  box-shadow:
+    0 0 0 7px rgba(98, 239, 255, 0.12),
+    0 0 28px rgba(98, 239, 255, 0.8);
 }
 
 .waho-art-bead-a {
@@ -293,15 +329,30 @@ For commercial licensing, please contact support@quantumnous.com
   width: 7px;
   height: 7px;
   background: var(--waho-pink);
-  box-shadow: 0 0 0 7px rgba(181, 1, 167, 0.1), 0 0 26px rgba(181, 1, 167, 0.42);
+  box-shadow:
+    0 0 0 7px rgba(181, 1, 167, 0.1),
+    0 0 26px rgba(181, 1, 167, 0.42);
 }
 
 .waho-hero-copy {
   position: relative;
   z-index: 5;
   margin: auto 0;
-  text-align: center;
+  width: min(1180px, 100%);
+  align-self: center;
+  text-align: left;
   transform: translateY(-1.5vh);
+}
+
+.waho-hero-main {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(430px, 1.08fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.waho-hero-pitch {
+  min-width: 0;
 }
 
 .waho-eyebrow {
@@ -332,6 +383,8 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .waho-hero-title {
+  display: grid;
+  gap: 0.35rem;
   margin: 1.125rem 0 0;
   background: linear-gradient(
     135deg,
@@ -341,11 +394,20 @@ For commercial licensing, please contact support@quantumnous.com
   );
   background-clip: text;
   color: transparent;
-  font-size: 16.5rem;
+  font-size: clamp(5.8rem, 10vw, 9.8rem);
   font-weight: 1000;
-  line-height: 0.76;
+  line-height: 0.84;
   text-transform: uppercase;
-  white-space: nowrap;
+}
+
+.waho-hero-title span {
+  font-size: 0.34em;
+  line-height: 0.9;
+}
+
+.waho-hero-title strong {
+  font: inherit;
+  line-height: 0.78;
 }
 
 .dark .waho-hero-title {
@@ -359,10 +421,10 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .waho-hero-subtitle {
-  max-width: 700px;
-  margin: 1.05rem auto 0;
+  max-width: 620px;
+  margin: 1.05rem 0 0;
   color: #4c5a69;
-  font-size: 1.125rem;
+  font-size: 1.2rem;
   font-weight: 760;
   line-height: 1.58;
 }
@@ -371,9 +433,168 @@ For commercial licensing, please contact support@quantumnous.com
   color: #a9b7c9;
 }
 
-.waho-hero-action {
+.waho-hero-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.75rem;
   margin-top: 1.35rem;
+}
+
+.waho-hero-action,
+.waho-hero-support-action {
   box-shadow: 0 18px 48px -30px rgba(15, 23, 42, 0.65);
+}
+
+.waho-hero-support-action {
+  border-color: var(--waho-line);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--waho-ink);
+  backdrop-filter: blur(16px);
+}
+
+.dark .waho-hero-support-action {
+  background: rgba(32, 35, 38, 0.66);
+  color: var(--waho-ink);
+}
+
+.waho-rate-card {
+  overflow: hidden;
+  border: 1px solid rgba(22, 140, 255, 0.2);
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.88),
+      rgba(255, 255, 255, 0.62)
+    ),
+    var(--waho-paper);
+  box-shadow: 0 52px 130px -88px rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(22px);
+}
+
+.dark .waho-rate-card {
+  background:
+    linear-gradient(180deg, rgba(32, 35, 38, 0.9), rgba(32, 35, 38, 0.64)),
+    var(--waho-paper);
+  box-shadow: 0 52px 130px -92px rgba(0, 0, 0, 0.96);
+}
+
+.waho-rate-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--waho-line);
+  padding: 1rem 1.1rem;
+}
+
+.waho-rate-card-head span {
+  color: var(--waho-muted);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-rate-card-head strong {
+  color: var(--waho-blue);
+  font-size: clamp(1.2rem, 2.2vw, 2rem);
+  font-weight: 1000;
+  white-space: nowrap;
+}
+
+.waho-rate-table {
+  display: grid;
+}
+
+.waho-rate-row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 1fr) minmax(7.5rem, 1fr) minmax(
+      8rem,
+      1.05fr
+    );
+  align-items: stretch;
+  border-bottom: 1px solid var(--waho-line);
+}
+
+.waho-rate-row > * {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border-right: 1px solid var(--waho-line);
+  padding: 0.95rem 1rem;
+}
+
+.waho-rate-row > *:last-child {
+  border-right: 0;
+}
+
+.waho-rate-row span {
+  color: #475569;
+  font-size: 0.92rem;
+  font-weight: 760;
+}
+
+.dark .waho-rate-row span {
+  color: #c0ccd9;
+}
+
+.waho-rate-row strong {
+  background: rgba(22, 140, 255, 0.08);
+  color: var(--waho-blue);
+  font-size: 0.95rem;
+  font-weight: 1000;
+}
+
+.waho-rate-item {
+  color: #142033 !important;
+  font-weight: 950 !important;
+}
+
+.dark .waho-rate-item {
+  color: #f8fbff !important;
+}
+
+.waho-rate-row-head {
+  background: rgba(15, 23, 42, 0.035);
+}
+
+.dark .waho-rate-row-head {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.waho-rate-row-head span {
+  color: #142033;
+  font-size: 0.72rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.dark .waho-rate-row-head span {
+  color: #e5eef8;
+}
+
+.waho-rate-example {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #0b111c;
+  color: #eff6ff;
+  padding: 1rem 1.1rem;
+}
+
+.waho-rate-example span {
+  color: rgba(239, 246, 255, 0.64);
+  font-size: 0.75rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-rate-example strong {
+  font-size: 1rem;
+  font-weight: 1000;
+  text-align: right;
 }
 
 .waho-hero-bottom {
@@ -533,8 +754,16 @@ For commercial licensing, please contact support@quantumnous.com
   overflow: clip;
   border-block: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at 18% 22%, rgba(98, 239, 255, 0.18), transparent 28%),
-    radial-gradient(circle at 74% 64%, rgba(181, 1, 167, 0.14), transparent 30%),
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(98, 239, 255, 0.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 74% 64%,
+      rgba(181, 1, 167, 0.14),
+      transparent 30%
+    ),
     #070b12;
   color: #ecf5ff;
 }
@@ -547,7 +776,13 @@ For commercial licensing, please contact support@quantumnous.com
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 54px 54px;
   content: '';
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(
+    180deg,
+    transparent,
+    #000 18%,
+    #000 82%,
+    transparent
+  );
 }
 
 .waho-feed-inner {
@@ -608,7 +843,12 @@ For commercial licensing, please contact support@quantumnous.com
   height: 2px;
   margin-top: 1rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  background: linear-gradient(
+    90deg,
+    var(--waho-cyan),
+    var(--waho-blue),
+    var(--waho-pink)
+  );
   content: '';
 }
 
@@ -626,7 +866,11 @@ For commercial licensing, please contact support@quantumnous.com
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.085),
+      rgba(255, 255, 255, 0.035)
+    ),
     rgba(13, 20, 31, 0.86);
   box-shadow: 0 30px 90px -62px rgba(0, 0, 0, 0.95);
   padding: 1rem;
@@ -700,7 +944,12 @@ For commercial licensing, please contact support@quantumnous.com
   position: absolute;
   inset: 0;
   display: block;
-  background: linear-gradient(90deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  background: linear-gradient(
+    90deg,
+    var(--waho-cyan),
+    var(--waho-blue),
+    var(--waho-pink)
+  );
   transform-origin: left center;
 }
 
@@ -723,7 +972,11 @@ For commercial licensing, please contact support@quantumnous.com
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 0.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.03)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.085),
+      rgba(255, 255, 255, 0.03)
+    ),
     #111724;
   box-shadow: 0 24px 76px -52px rgba(0, 0, 0, 0.9);
   color: #e9eef7;
@@ -782,7 +1035,12 @@ For commercial licensing, please contact support@quantumnous.com
   right: max(2.125rem, calc((100vw - 1120px) / 2));
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--waho-blue), var(--waho-cyan), transparent);
+  background: linear-gradient(
+    90deg,
+    var(--waho-blue),
+    var(--waho-cyan),
+    transparent
+  );
   opacity: 0.76;
   transform-origin: left center;
 }
@@ -820,7 +1078,12 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 .waho-workspace-progress {
-  background: linear-gradient(90deg, var(--waho-pink), var(--waho-blue), var(--waho-cyan));
+  background: linear-gradient(
+    90deg,
+    var(--waho-pink),
+    var(--waho-blue),
+    var(--waho-cyan)
+  );
 }
 
 .waho-section-head {
@@ -1037,7 +1300,11 @@ For commercial licensing, please contact support@quantumnous.com
   border: 1px solid var(--waho-line);
   border-radius: 0.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 249, 253, 0.86)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(245, 249, 253, 0.86)
+    ),
     #f8fafc;
   box-shadow: 0 28px 80px -64px rgba(15, 23, 42, 0.7);
   padding: 1.125rem;
@@ -1367,7 +1634,11 @@ For commercial licensing, please contact support@quantumnous.com
   border: 1px solid var(--waho-line);
   border-radius: 0.75rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.58)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.78),
+      rgba(255, 255, 255, 0.58)
+    ),
     var(--waho-paper);
   box-shadow: 0 58px 130px -104px rgba(15, 23, 42, 0.9);
   margin: 0 auto;
@@ -1441,14 +1712,26 @@ For commercial licensing, please contact support@quantumnous.com
   overflow: hidden;
   border-right: 1px solid var(--waho-line);
   background:
-    radial-gradient(circle at 24% 16%, rgba(98, 239, 255, 0.16), transparent 30%),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.72), rgba(241, 245, 249, 0.58));
+    radial-gradient(
+      circle at 24% 16%,
+      rgba(98, 239, 255, 0.16),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(248, 250, 252, 0.72),
+      rgba(241, 245, 249, 0.58)
+    );
   padding: 1.5rem;
 }
 
 .dark .waho-workflow-rail-panel {
   background:
-    radial-gradient(circle at 24% 16%, rgba(98, 239, 255, 0.12), transparent 30%),
+    radial-gradient(
+      circle at 24% 16%,
+      rgba(98, 239, 255, 0.12),
+      transparent 30%
+    ),
     rgba(255, 255, 255, 0.04);
 }
 
@@ -1493,7 +1776,12 @@ For commercial licensing, please contact support@quantumnous.com
   width: 1px;
   height: 34px;
   margin-left: 1.15rem;
-  background: linear-gradient(180deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  background: linear-gradient(
+    180deg,
+    var(--waho-cyan),
+    var(--waho-blue),
+    var(--waho-pink)
+  );
 }
 
 .waho-flow-metrics {
@@ -1743,40 +2031,77 @@ For commercial licensing, please contact support@quantumnous.com
 
 .waho-footer-copy {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
   justify-items: start;
 }
 
-.waho-footer-system {
-  display: inline-grid;
-  grid-template-columns: auto auto auto;
+.waho-support-card {
+  display: grid;
+  grid-template-columns: 8.75rem minmax(0, 1fr);
   align-items: center;
-  gap: 0.65rem;
+  gap: 1rem;
   border: 1px solid var(--waho-line);
-  border-radius: 999px;
+  border-radius: 1.25rem;
   background: rgba(255, 255, 255, 0.62);
-  padding: 0.48rem 0.72rem;
+  box-shadow: 0 28px 80px -64px rgba(15, 23, 42, 0.7);
+  padding: 0.8rem;
 }
 
-.dark .waho-footer-system {
+.dark .waho-support-card {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.waho-footer-system span {
+.waho-support-qr {
+  overflow: hidden;
+  border: 1px solid rgba(100, 116, 139, 0.18);
+  border-radius: 0.9rem;
+  background: #fff;
+  padding: 0.45rem;
+}
+
+.waho-support-qr img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.55rem;
+}
+
+.waho-support-details {
+  display: grid;
+  min-width: 0;
+  gap: 0.55rem;
+}
+
+.waho-support-label {
   color: #657386;
   font-size: 0.68rem;
   font-weight: 1000;
   text-transform: uppercase;
 }
 
-.dark .waho-footer-system span {
+.dark .waho-support-label {
   color: #a9b7c9;
 }
 
-.waho-footer-system strong {
+.waho-support-contact {
+  display: grid;
+  grid-template-columns: 1rem minmax(4.75rem, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  color: #415062;
+  font-size: 0.86rem;
+  font-weight: 860;
+  text-decoration: none;
+}
+
+.waho-support-contact strong {
   color: var(--waho-blue);
-  font-size: 0.9rem;
   font-weight: 1000;
+  overflow-wrap: anywhere;
+}
+
+.dark .waho-support-contact {
+  color: #d8e3ef;
 }
 
 .dark .waho-footer-inner p {
@@ -1784,8 +2109,48 @@ For commercial licensing, please contact support@quantumnous.com
 }
 
 @media (max-width: 1200px) {
+  .waho-hero {
+    min-height: auto;
+    padding-top: 6.5rem;
+  }
+
+  .waho-hero-copy {
+    transform: none;
+  }
+
+  .waho-hero-main {
+    max-width: 780px;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin: 0 auto;
+  }
+
+  .waho-hero-pitch,
+  .waho-hero-subtitle {
+    text-align: center;
+  }
+
+  .waho-hero-pitch {
+    display: grid;
+    justify-items: center;
+  }
+
   .waho-hero-title {
-    font-size: 12.25rem;
+    font-size: clamp(5.4rem, 13vw, 8.2rem);
+  }
+
+  .waho-hero-actions {
+    justify-content: center;
+  }
+
+  .waho-hero-scene {
+    bottom: -6.5rem;
+    width: min(56vw, 560px);
+    opacity: 0.68;
+  }
+
+  .waho-hero-bottom {
+    margin-top: 2.5rem;
   }
 
   .waho-title {
@@ -1921,7 +2286,8 @@ For commercial licensing, please contact support@quantumnous.com
   .waho-eyebrow,
   .waho-hero-title,
   .waho-hero-subtitle,
-  .waho-hero-action,
+  .waho-hero-actions,
+  .waho-rate-card,
   .waho-hero-bottom {
     animation: waho-fade-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
@@ -1938,12 +2304,16 @@ For commercial licensing, please contact support@quantumnous.com
     animation-delay: 220ms;
   }
 
-  .waho-hero-action {
+  .waho-hero-actions {
     animation-delay: 280ms;
   }
 
+  .waho-rate-card {
+    animation-delay: 330ms;
+  }
+
   .waho-hero-bottom {
-    animation-delay: 360ms;
+    animation-delay: 410ms;
   }
 
   .waho-live-dot {
@@ -1969,7 +2339,7 @@ For commercial licensing, please contact support@quantumnous.com
   }
 
   .waho-hero-title {
-    font-size: 8.5rem;
+    font-size: clamp(4.8rem, 18vw, 7.4rem);
   }
 
   .waho-hero-subtitle,
@@ -1979,10 +2349,10 @@ For commercial licensing, please contact support@quantumnous.com
 
   .waho-hero-scene {
     top: auto;
-    bottom: 7.5rem;
+    bottom: 9.25rem;
     width: min(70vw, 500px);
     min-width: 0;
-    opacity: 0.9;
+    opacity: 0.42;
   }
 
   .waho-hero-bottom,
@@ -1997,10 +2367,38 @@ For commercial licensing, please contact support@quantumnous.com
     grid-template-columns: 1fr;
   }
 
+  .waho-footer-inner {
+    display: grid;
+  }
+
   .waho-terminal {
     justify-self: stretch;
     width: 100%;
     min-width: 0;
+  }
+
+  .waho-support-card {
+    width: min(100%, 32rem);
+  }
+
+  .waho-rate-card-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .waho-rate-card-head strong {
+    white-space: normal;
+  }
+
+  .waho-rate-example {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .waho-rate-example strong {
+    text-align: left;
   }
 
   .waho-hero-chips {
@@ -2126,22 +2524,135 @@ For commercial licensing, please contact support@quantumnous.com
 
 @media (max-width: 560px) {
   .waho-hero-title {
-    font-size: 4.9rem;
-    line-height: 0.82;
+    font-size: clamp(3.8rem, 16.5vw, 4.55rem);
+    line-height: 0.84;
   }
 
   .waho-hero {
-    min-height: 920px;
+    min-height: 100svh;
+    padding-top: 5.45rem;
+    padding-bottom: 1.125rem;
   }
 
   .waho-hero-scene {
-    bottom: 15.5rem;
+    bottom: 13.5rem;
     width: 104vw;
-    opacity: 0.84;
+    opacity: 0.24;
   }
 
   .waho-hero-copy {
-    transform: translateY(-2.75rem);
+    transform: none;
+  }
+
+  .waho-hero-main {
+    gap: 0.95rem;
+  }
+
+  .waho-hero-subtitle {
+    max-width: 21rem;
+    margin-top: 0.8rem;
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  .waho-hero-actions {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .waho-hero-actions > * {
+    flex: 1;
+    min-width: 0;
+    padding-inline: 0.7rem !important;
+    white-space: nowrap;
+  }
+
+  .waho-rate-card {
+    border-radius: 1rem;
+  }
+
+  .waho-rate-card-head,
+  .waho-rate-example {
+    padding: 0.74rem 0.8rem;
+  }
+
+  .waho-rate-table {
+    gap: 0;
+  }
+
+  .waho-rate-row-head {
+    display: none;
+  }
+
+  .waho-rate-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.42rem;
+    border-bottom: 1px solid var(--waho-line);
+    padding: 0.62rem 0.8rem;
+  }
+
+  .waho-rate-row > * {
+    border-right: 0;
+    padding: 0;
+  }
+
+  .waho-rate-row > * + * {
+    margin-top: 0;
+  }
+
+  .waho-rate-item {
+    grid-column: 1 / -1;
+    font-size: 0.76rem !important;
+    text-transform: uppercase;
+  }
+
+  .waho-rate-row [data-rate-label] {
+    display: grid;
+    align-content: start;
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    border-radius: 0.7rem;
+    padding: 0.42rem 0.58rem;
+  }
+
+  .waho-rate-row [data-rate-label]::before {
+    color: var(--waho-muted);
+    content: attr(data-rate-label);
+    font-size: 0.62rem;
+    font-weight: 1000;
+    text-transform: uppercase;
+  }
+
+  .waho-rate-row strong[data-rate-label] {
+    background: rgba(22, 140, 255, 0.1);
+  }
+
+  .waho-hero-bottom {
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .waho-hero-note {
+    max-width: none;
+    font-size: 0.92rem;
+  }
+
+  .waho-hero-stats > div {
+    min-width: 88px;
+  }
+
+  .waho-support-card {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 18rem;
+  }
+
+  .waho-support-qr {
+    width: min(100%, 13.5rem);
+    justify-self: center;
   }
 
   .waho-chip {
@@ -2246,7 +2757,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 @media (max-width: 380px) {
   .waho-hero-title {
-    font-size: 4.2rem;
+    font-size: 3.65rem;
   }
 }
 

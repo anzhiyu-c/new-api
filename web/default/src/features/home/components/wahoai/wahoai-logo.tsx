@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 
-export const WAHOAI_MARK_SRC = '/brand/wahoai-mark.svg'
+export const WAHOAI_HEADER_LOGO_SRC = '/brand/wahoai-cn-surgefish-v2-light.png'
 
 interface WahoAIHeaderLogoProps {
   className?: string
@@ -30,11 +30,11 @@ export function WahoAIHeaderLogo(props: WahoAIHeaderLogoProps) {
 
   return (
     <img
-      src={WAHOAI_MARK_SRC}
+      src={WAHOAI_HEADER_LOGO_SRC}
       alt={t('WahoAI logo')}
       className={cn('waho-header-logo', props.className)}
-      width={32}
-      height={32}
+      width={1600}
+      height={320}
     />
   )
 }

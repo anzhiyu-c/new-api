@@ -63,6 +63,8 @@ export interface PublicHeaderProps {
   showNavigation?: boolean
   showAuthButtons?: boolean
   showNotifications?: boolean
+  hideSiteName?: boolean
+  variant?: 'default' | 'large'
   className?: string
 }
 
@@ -76,6 +78,8 @@ export function PublicHeader(props: PublicHeaderProps) {
     homeUrl = '/',
     showAuthButtons = true,
     showNotifications = true,
+    hideSiteName = false,
+    variant = 'default',
   } = props
 
   const { t } = useTranslation()
@@ -102,6 +106,7 @@ export function PublicHeader(props: PublicHeaderProps) {
   const isAuthenticated = !!user
   const displaySiteName = customSiteName || systemName
   const links = dynamicLinks.length > 0 ? dynamicLinks : navLinks
+  const isLarge = variant === 'large'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -184,25 +189,48 @@ export function PublicHeader(props: PublicHeaderProps) {
         <div
           className={cn(
             'pointer-events-auto mx-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
-            scrolled ? 'max-w-[52rem] px-3 pt-3' : 'max-w-7xl px-4 pt-0 md:px-6'
+            scrolled
+              ? cn(
+                  'px-3 pt-3',
+                  isLarge ? 'max-w-[64rem] md:pt-4' : 'max-w-[52rem]'
+                )
+              : cn('max-w-7xl px-4 pt-0 md:px-6', isLarge && 'md:pt-4')
           )}
         >
           <nav
             className={cn(
               'flex items-center justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]',
               scrolled
-                ? 'bg-background/60 ring-border/50 h-12 rounded-2xl pr-1.5 pl-4 shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]'
-                : 'h-16 px-2'
+                ? cn(
+                    'bg-background/60 ring-border/50 rounded-2xl shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]',
+                    isLarge
+                      ? 'h-16 pr-2 pl-4 md:h-[4.5rem] md:rounded-[1.5rem] md:pr-2.5 md:pl-6'
+                      : 'h-12 pr-1.5 pl-4'
+                  )
+                : cn('px-2', isLarge ? 'h-20 md:h-24' : 'h-16')
             )}
           >
             {/* Logo */}
             <Link
               to={homeUrl}
-              className='group flex shrink-0 items-center gap-2.5'
+              className={cn(
+                'group flex min-w-0 shrink-0 items-center',
+                isLarge ? 'gap-3 md:gap-4' : 'gap-2.5'
+              )}
             >
-              <div className='flex size-7 shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-105'>
+              <div
+                className={cn(
+                  'flex shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-105',
+                  isLarge ? 'h-12 w-36 sm:w-44 md:h-14 md:w-52' : 'size-7'
+                )}
+              >
                 {loading ? (
-                  <Skeleton className='size-full rounded-lg' />
+                  <Skeleton
+                    className={cn(
+                      'size-full rounded-lg',
+                      isLarge && 'rounded-xl'
+                    )}
+                  />
                 ) : customLogo ? (
                   customLogo
                 ) : (
@@ -214,13 +242,29 @@ export function PublicHeader(props: PublicHeaderProps) {
                   />
                 )}
               </div>
-              <span className='text-sm font-semibold tracking-tight'>
-                {loading ? <Skeleton className='h-4 w-16' /> : displaySiteName}
-              </span>
+              {!hideSiteName && (
+                <span
+                  className={cn(
+                    'font-semibold tracking-tight',
+                    isLarge ? 'text-base md:text-lg' : 'text-sm'
+                  )}
+                >
+                  {loading ? (
+                    <Skeleton className='h-4 w-16' />
+                  ) : (
+                    displaySiteName
+                  )}
+                </span>
+              )}
             </Link>
 
             {/* Desktop nav */}
-            <div className='hidden items-center gap-0.5 sm:flex'>
+            <div
+              className={cn(
+                'hidden items-center sm:flex',
+                isLarge ? 'gap-1' : 'gap-0.5'
+              )}
+            >
               {links.map((link, i) => {
                 const isActive = pathname === link.href
                 if (link.external) {
@@ -234,7 +278,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                       tabIndex={link.disabled ? -1 : undefined}
                       onClick={(event) => handleNavLinkClick(event, link)}
                       className={cn(
-                        'text-muted-foreground hover:text-foreground rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                        'text-muted-foreground hover:text-foreground rounded-lg font-medium transition-colors duration-200',
+                        isLarge
+                          ? 'px-3.5 py-2 text-sm'
+                          : 'px-3 py-1.5 text-[13px]',
                         link.disabled && 'pointer-events-none opacity-50'
                       )}
                     >
@@ -249,7 +296,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                     disabled={link.disabled}
                     onClick={(event) => handleNavLinkClick(event, link)}
                     className={cn(
-                      'rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                      'rounded-lg font-medium transition-colors duration-200',
+                      isLarge
+                        ? 'px-3.5 py-2 text-sm'
+                        : 'px-3 py-1.5 text-[13px]',
                       isActive
                         ? 'text-foreground'
                         : 'text-muted-foreground hover:text-foreground',
@@ -286,13 +336,18 @@ export function PublicHeader(props: PublicHeaderProps) {
                 <>
                   <div className='bg-border/40 mx-1 h-4 w-px' />
                   {loading ? (
-                    <Skeleton className='h-8 w-20 rounded-lg' />
+                    <Skeleton
+                      className={cn('w-20 rounded-lg', isLarge ? 'h-9' : 'h-8')}
+                    />
                   ) : isAuthenticated ? (
                     <ProfileDropdown />
                   ) : (
                     <Button
                       size='sm'
-                      className='h-8 rounded-lg px-3.5 text-xs font-medium'
+                      className={cn(
+                        'rounded-lg font-medium',
+                        isLarge ? 'h-9 px-4 text-sm' : 'h-8 px-3.5 text-xs'
+                      )}
                       render={<Link to='/sign-in' />}
                     >
                       {t('Sign in')}

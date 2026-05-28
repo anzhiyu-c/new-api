@@ -67,6 +67,8 @@ export function Home() {
       showMainContainer={false}
       logo={<WahoAIHeaderLogo />}
       siteName='WahoAI'
+      hideSiteName
+      headerProps={{ variant: 'large' }}
     >
       <WahoAIHomePage isAuthenticated={isAuthenticated} />
       <Footer />
