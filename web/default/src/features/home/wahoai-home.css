@@ -1,0 +1,2269 @@
+/*
+Copyright (C) 2023-2026 QuantumNous
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
+
+.waho-home {
+  --waho-bg: #f4f6f8;
+  --waho-ink: #101214;
+  --waho-muted: #637181;
+  --waho-line: rgba(16, 18, 20, 0.12);
+  --waho-blue: #168cff;
+  --waho-cyan: #62efff;
+  --waho-violet: #3d58ff;
+  --waho-pink: #b501a7;
+  --waho-green: #16c172;
+  --waho-paper: #ffffff;
+  --waho-dark: #070b12;
+  --waho-dark-soft: #0b1018;
+  background: var(--waho-bg);
+  color: var(--waho-ink);
+  overflow-x: hidden;
+}
+
+.dark .waho-home {
+  --waho-bg: #151719;
+  --waho-ink: #f6f8fb;
+  --waho-muted: #a0acba;
+  --waho-line: rgba(255, 255, 255, 0.12);
+  --waho-paper: #202326;
+}
+
+.waho-home * {
+  letter-spacing: 0;
+}
+
+.waho-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: radial-gradient(
+    rgba(16, 18, 20, 0.08) 0.55px,
+    transparent 0.55px
+  );
+  background-size: 4px 4px;
+  opacity: 0.28;
+}
+
+.dark .waho-grain {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.08) 0.55px,
+    transparent 0.55px
+  );
+  opacity: 0.18;
+}
+
+.waho-story-spine {
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  right: 1.25rem;
+  z-index: 60;
+  display: grid;
+  gap: 0.58rem;
+  justify-items: center;
+  padding-block: 0.25rem;
+  transform: translateY(-50%);
+}
+
+.waho-story-spine-track,
+.waho-story-spine-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.waho-story-spine-track {
+  background: rgba(100, 116, 139, 0.2);
+}
+
+.waho-story-spine-fill {
+  background: linear-gradient(180deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+}
+
+.waho-story-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(100, 116, 139, 0.32);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.36);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.waho-story-dot.is-active {
+  border-color: rgba(98, 239, 255, 0.88);
+  background: var(--waho-cyan);
+  box-shadow: 0 0 0 4px rgba(98, 239, 255, 0.12), 0 0 20px rgba(98, 239, 255, 0.45);
+  transform: scale(1.35);
+}
+
+.dark .waho-story-dot {
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.38);
+}
+
+.waho-hero {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 6rem 2rem 2.125rem;
+}
+
+.waho-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(circle at 50% 76%, rgba(98, 239, 255, 0.3), transparent 22%),
+    radial-gradient(circle at 77% 24%, rgba(181, 1, 167, 0.11), transparent 31%),
+    radial-gradient(circle at 18% 30%, rgba(22, 193, 114, 0.08), transparent 28%),
+    linear-gradient(180deg, var(--waho-bg) 0%, #eaf1f8 100%);
+}
+
+.dark .waho-hero-bg {
+  background:
+    radial-gradient(circle at 50% 76%, rgba(98, 239, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 77% 24%, rgba(181, 1, 167, 0.12), transparent 34%),
+    linear-gradient(180deg, #151719 0%, #111827 100%);
+}
+
+.waho-hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(16, 18, 20, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 18, 20, 0.035) 1px, transparent 1px);
+  background-position: center;
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 86%, transparent 100%);
+  opacity: 0.72;
+}
+
+.dark .waho-hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+}
+
+.waho-hero-ring {
+  position: absolute;
+  left: 50%;
+  bottom: -9rem;
+  z-index: -1;
+  width: min(46vw, 640px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(181, 1, 167, 0.18);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(22, 140, 255, 0.08);
+  transform: translateX(-50%);
+}
+
+.waho-hero-scene {
+  pointer-events: none;
+  position: absolute;
+  bottom: -8.25rem;
+  left: 50%;
+  z-index: 3;
+  width: min(42vw, 580px);
+  min-width: 390px;
+  transform: translateX(-50%);
+}
+
+.waho-hero-engine {
+  display: block;
+  width: 100%;
+  height: auto;
+  mask-image: radial-gradient(
+    ellipse at 50% 66%,
+    #000 0%,
+    #000 48%,
+    rgba(0, 0, 0, 0.78) 58%,
+    transparent 76%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 66%,
+    #000 0%,
+    #000 48%,
+    rgba(0, 0, 0, 0.78) 58%,
+    transparent 76%
+  );
+  mix-blend-mode: multiply;
+  object-fit: contain;
+  filter: drop-shadow(0 34px 62px rgba(22, 140, 255, 0.18));
+  user-select: none;
+}
+
+.dark .waho-hero-engine {
+  mix-blend-mode: screen;
+  opacity: 0.82;
+}
+
+.waho-header-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.waho-engine-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 21%;
+  z-index: -1;
+  width: 66%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(98, 239, 255, 0.32);
+  filter: blur(50px);
+  transform: translateX(-50%);
+}
+
+.waho-art-orbit,
+.waho-art-bead {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.waho-art-orbit {
+  left: 50%;
+  z-index: -1;
+  border: 1px solid rgba(22, 140, 255, 0.14);
+  transform: translateX(-50%) rotate(-11deg);
+}
+
+.waho-art-orbit-a {
+  top: 19%;
+  width: 108%;
+  height: 30%;
+}
+
+.waho-art-orbit-b {
+  top: 24%;
+  width: 82%;
+  height: 23%;
+  border-color: rgba(181, 1, 167, 0.12);
+  transform: translateX(-50%) rotate(15deg);
+}
+
+.waho-art-bead {
+  background: var(--waho-cyan);
+  box-shadow: 0 0 0 7px rgba(98, 239, 255, 0.12), 0 0 28px rgba(98, 239, 255, 0.8);
+}
+
+.waho-art-bead-a {
+  top: 28%;
+  left: 3%;
+  width: 9px;
+  height: 9px;
+}
+
+.waho-art-bead-b {
+  top: 22%;
+  right: 9%;
+  width: 7px;
+  height: 7px;
+  background: var(--waho-pink);
+  box-shadow: 0 0 0 7px rgba(181, 1, 167, 0.1), 0 0 26px rgba(181, 1, 167, 0.42);
+}
+
+.waho-hero-copy {
+  position: relative;
+  z-index: 5;
+  margin: auto 0;
+  text-align: center;
+  transform: translateY(-1.5vh);
+}
+
+.waho-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.63);
+  color: #344252;
+  font-size: 0.75rem;
+  font-weight: 1000;
+  padding: 0.5rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.dark .waho-eyebrow {
+  background: rgba(32, 35, 38, 0.72);
+  color: #dbeafe;
+}
+
+.waho-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--waho-green);
+  box-shadow: 0 0 0 5px rgba(22, 193, 114, 0.13);
+}
+
+.waho-hero-title {
+  margin: 1.125rem 0 0;
+  background: linear-gradient(
+    135deg,
+    #0b111c 22%,
+    #3e4859 60%,
+    var(--waho-blue) 102%
+  );
+  background-clip: text;
+  color: transparent;
+  font-size: 16.5rem;
+  font-weight: 1000;
+  line-height: 0.76;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dark .waho-hero-title {
+  background: linear-gradient(
+    135deg,
+    #f8fbff 18%,
+    #93a4ba 62%,
+    var(--waho-cyan) 104%
+  );
+  background-clip: text;
+}
+
+.waho-hero-subtitle {
+  max-width: 700px;
+  margin: 1.05rem auto 0;
+  color: #4c5a69;
+  font-size: 1.125rem;
+  font-weight: 760;
+  line-height: 1.58;
+}
+
+.dark .waho-hero-subtitle {
+  color: #a9b7c9;
+}
+
+.waho-hero-action {
+  margin-top: 1.35rem;
+  box-shadow: 0 18px 48px -30px rgba(15, 23, 42, 0.65);
+}
+
+.waho-hero-bottom {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 1.375rem;
+}
+
+.waho-hero-note {
+  max-width: 285px;
+  font-size: 1.05rem;
+  font-weight: 1000;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.waho-hero-note em {
+  color: var(--waho-blue);
+  font-style: normal;
+}
+
+.waho-hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+.waho-chip {
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.64);
+  color: #44515f;
+  font-size: 0.75rem;
+  font-weight: 1000;
+  padding: 0.625rem 0.8125rem;
+  text-transform: uppercase;
+}
+
+.dark .waho-chip {
+  background: rgba(32, 35, 38, 0.72);
+  color: #cbd5e1;
+}
+
+.waho-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.625rem;
+}
+
+.waho-hero-stats > div {
+  display: grid;
+  min-width: 94px;
+  gap: 0.2rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 0.6rem 0.85rem;
+  text-align: center;
+  backdrop-filter: blur(18px);
+}
+
+.dark .waho-hero-stats > div {
+  background: rgba(32, 35, 38, 0.72);
+}
+
+.waho-hero-stats strong,
+.waho-hero-stats span {
+  display: block;
+  line-height: 1;
+}
+
+.waho-hero-stats strong {
+  color: #172133;
+  font-size: 0.92rem;
+  font-weight: 1000;
+}
+
+.dark .waho-hero-stats strong {
+  color: #f8fbff;
+}
+
+.waho-hero-stats span {
+  color: #6a7582;
+  font-size: 0.64rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.dark .waho-hero-stats span {
+  color: #a9b7c9;
+}
+
+.waho-terminal {
+  justify-self: end;
+  width: min(34vw, 390px);
+  min-width: 286px;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 34px 90px -60px rgba(15, 23, 42, 0.8);
+  padding: 1.0625rem;
+  backdrop-filter: blur(24px);
+}
+
+.dark .waho-terminal {
+  background: rgba(11, 16, 24, 0.82);
+}
+
+.waho-terminal-head {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(16, 18, 20, 0.08);
+  color: #64748b;
+  font-size: 0.6875rem;
+  font-weight: 1000;
+  padding-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.dark .waho-terminal-head {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.waho-code {
+  color: #334155;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.78;
+  padding-top: 0.75rem;
+}
+
+.dark .waho-code {
+  color: #d9e6f5;
+}
+
+.waho-code-blue {
+  color: #1268f3;
+}
+
+.waho-code-green {
+  color: #0d9b70;
+}
+
+.waho-code-muted {
+  color: #94a3b8;
+}
+
+.waho-feed {
+  position: relative;
+  z-index: 4;
+  min-height: 78svh;
+  overflow: clip;
+  border-block: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 18% 22%, rgba(98, 239, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 74% 64%, rgba(181, 1, 167, 0.14), transparent 30%),
+    #070b12;
+  color: #ecf5ff;
+}
+
+.waho-feed::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 54px 54px;
+  content: '';
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.waho-feed-inner {
+  position: sticky;
+  top: 0;
+  display: flex;
+  min-height: 78svh;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: 5.5rem 0;
+}
+
+.waho-feed-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2.125rem;
+}
+
+.waho-feed-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 350px);
+  align-items: end;
+  gap: 2rem;
+}
+
+.waho-feed-title {
+  display: block;
+  position: relative;
+  max-width: 670px;
+  margin-top: 0.55rem;
+  color: #eef7ff;
+  font-size: clamp(3rem, 4.6vw, 5.7rem);
+  font-weight: 1000;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.waho-feed-title span {
+  display: block;
+}
+
+.waho-feed-title span + span {
+  color: #9fb7d6;
+  font-size: 0.72em;
+  line-height: 1;
+}
+
+.waho-feed-title::after,
+.waho-title-route::after,
+.waho-title-telemetry::after,
+.waho-title-workspace::after,
+.waho-footer-title::after {
+  display: block;
+  width: min(220px, 58%);
+  height: 2px;
+  margin-top: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  content: '';
+}
+
+.waho-feed-copy p {
+  max-width: 420px;
+  margin: 1rem 0 0;
+  color: #93a4ba;
+  font-weight: 750;
+  line-height: 1.58;
+}
+
+.waho-feed-console {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035)),
+    rgba(13, 20, 31, 0.86);
+  box-shadow: 0 30px 90px -62px rgba(0, 0, 0, 0.95);
+  padding: 1rem;
+}
+
+.waho-feed-console::before {
+  position: absolute;
+  top: -55%;
+  right: -18%;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: rgba(98, 239, 255, 0.18);
+  content: '';
+  filter: blur(34px);
+}
+
+.waho-feed-console > * {
+  position: relative;
+}
+
+.waho-feed-console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #93a4ba;
+  font-size: 0.68rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-feed-console-head strong {
+  border-radius: 999px;
+  background: rgba(22, 193, 114, 0.13);
+  color: #7ff3bd;
+  font-size: 0.64rem;
+  padding: 0.35rem 0.54rem;
+}
+
+.waho-feed-console-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.7rem 1rem;
+  margin-top: 1rem;
+}
+
+.waho-feed-console-grid span {
+  color: #8294aa;
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.waho-feed-console-grid strong {
+  color: #f2f8ff;
+  font-size: 0.88rem;
+  font-weight: 1000;
+}
+
+.waho-feed-rail {
+  position: relative;
+  z-index: 2;
+  height: 1px;
+  max-width: 1120px;
+  margin: 0 auto;
+  width: calc(100% - 4.25rem);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.waho-feed-rail span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: linear-gradient(90deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+  transform-origin: left center;
+}
+
+.waho-feed-track {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: max-content;
+  gap: 0.875rem;
+  padding-inline: max(2.125rem, calc((100vw - 1120px) / 2));
+  will-change: transform;
+}
+
+.waho-feed-card {
+  display: flex;
+  width: min(330px, 72vw);
+  height: 150px;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.03)),
+    #111724;
+  box-shadow: 0 24px 76px -52px rgba(0, 0, 0, 0.9);
+  color: #e9eef7;
+  padding: 1rem;
+  transform-style: preserve-3d;
+  transform-origin: center bottom;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.waho-feed-card:hover {
+  border-color: rgba(98, 239, 255, 0.36);
+  transform: translateY(-4px);
+}
+
+.waho-feed-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #8fa1b5;
+  font-size: 0.6875rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-feed-card strong {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.waho-feed-card small {
+  color: #7f91a6;
+  font-weight: 860;
+  text-transform: uppercase;
+}
+
+.waho-section {
+  position: relative;
+  z-index: 5;
+  padding: 7rem 2.125rem;
+}
+
+.waho-section-white {
+  overflow: clip;
+  border-radius: 4.375rem 4.375rem 0 0;
+  background: var(--waho-paper);
+}
+
+.waho-scroll-lane,
+.waho-workspace-progress {
+  position: absolute;
+  top: 3.25rem;
+  left: max(2.125rem, calc((100vw - 1120px) / 2));
+  right: max(2.125rem, calc((100vw - 1120px) / 2));
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--waho-blue), var(--waho-cyan), transparent);
+  opacity: 0.76;
+  transform-origin: left center;
+}
+
+.waho-section-dark {
+  overflow: clip;
+  margin-top: -3.25rem;
+  border-radius: 4.375rem 4.375rem 0 0;
+  background: var(--waho-dark);
+  color: #e8f0fa;
+  padding-bottom: 7.75rem;
+}
+
+.waho-telemetry-scan {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -12%;
+  width: 22%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(98, 239, 255, 0.16),
+    transparent
+  );
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.waho-section-stack {
+  margin-top: -3.25rem;
+  padding-top: 8rem;
+  border-radius: 4.375rem 4.375rem 0 0;
+  background: var(--waho-bg);
+}
+
+.waho-workspace-progress {
+  background: linear-gradient(90deg, var(--waho-pink), var(--waho-blue), var(--waho-cyan));
+}
+
+.waho-section-head {
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: 0.78fr 1.22fr;
+  align-items: start;
+  gap: 2rem;
+  margin: 0 auto 4.125rem;
+}
+
+.waho-section-head-route {
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.86fr);
+}
+
+.waho-section-head-workspace {
+  grid-template-columns: minmax(0, 0.82fr) minmax(360px, 0.9fr);
+}
+
+.waho-label {
+  color: var(--waho-pink);
+  font-size: 0.6875rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-title {
+  margin: 0.625rem 0 0;
+  font-size: clamp(3.35rem, 5.1vw, 5.35rem);
+  font-weight: 1000;
+  line-height: 0.94;
+  max-width: 620px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.waho-title span {
+  display: block;
+}
+
+.waho-title-route span + span,
+.waho-title-workspace span + span {
+  color: #465668;
+  font-size: 0.78em;
+}
+
+.dark .waho-title-route span + span,
+.dark .waho-title-workspace span + span {
+  color: #a9b7c9;
+}
+
+.waho-title-telemetry {
+  color: #f2f8ff;
+  font-size: clamp(3.35rem, 5vw, 5.25rem);
+}
+
+.waho-title-telemetry span + span {
+  color: #7da7ff;
+  font-size: 0.82em;
+}
+
+.waho-title-tabs,
+.waho-workflow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.waho-title-tabs span,
+.waho-workflow-steps span {
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background: rgba(248, 250, 252, 0.82);
+  color: #526273;
+  font-size: 0.6875rem;
+  font-weight: 1000;
+  padding: 0.45rem 0.68rem;
+  text-transform: uppercase;
+}
+
+.waho-title-tabs span:first-child,
+.waho-workflow-steps span:first-child {
+  border-color: rgba(22, 140, 255, 0.24);
+  background: rgba(22, 140, 255, 0.08);
+  color: #1268f3;
+}
+
+.dark .waho-title-tabs span,
+.dark .waho-workflow-steps span {
+  background: rgba(255, 255, 255, 0.05);
+  color: #b8c7d9;
+}
+
+.waho-section-copy {
+  display: grid;
+  gap: 1.125rem;
+  justify-items: start;
+}
+
+.waho-head-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.waho-section-head p {
+  color: #596777;
+  font-size: 1.25rem;
+  font-weight: 770;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.dark .waho-section-head p {
+  color: #a9b7c9;
+}
+
+.waho-head-stat {
+  display: inline-grid;
+  gap: 0.18rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  min-width: 170px;
+  padding: 0.8rem 0.95rem;
+}
+
+.dark .waho-head-stat {
+  background: #202326;
+}
+
+.waho-head-stat strong {
+  color: var(--waho-blue);
+  font-size: 1.6rem;
+  font-weight: 1000;
+  line-height: 1;
+}
+
+.waho-head-stat span {
+  color: #6b7786;
+  font-size: 0.72rem;
+  font-weight: 920;
+  text-transform: uppercase;
+}
+
+.waho-route-panel {
+  display: grid;
+  min-width: min(100%, 320px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background: #f8fafc;
+}
+
+.dark .waho-route-panel {
+  background: #202326;
+}
+
+.waho-route-panel div {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.78rem 0.82rem;
+}
+
+.waho-route-panel div + div {
+  border-left: 1px solid var(--waho-line);
+}
+
+.waho-route-panel span {
+  color: #6b7786;
+  font-size: 0.64rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.dark .waho-route-panel span {
+  color: #a9b7c9;
+}
+
+.waho-route-panel strong {
+  overflow: hidden;
+  color: #172133;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.dark .waho-route-panel strong {
+  color: #f8fbff;
+}
+
+.dark .waho-head-stat span {
+  color: #a9b7c9;
+}
+
+.waho-asset-strip {
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 auto 3.5rem;
+}
+
+.waho-asset {
+  position: relative;
+  min-height: 180px;
+  overflow: hidden;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 249, 253, 0.86)),
+    #f8fafc;
+  box-shadow: 0 28px 80px -64px rgba(15, 23, 42, 0.7);
+  padding: 1.125rem;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.waho-asset:hover {
+  border-color: rgba(22, 140, 255, 0.34);
+  box-shadow: 0 34px 90px -62px rgba(22, 140, 255, 0.52);
+  transform: translateY(-4px);
+}
+
+.dark .waho-asset {
+  background: #202326;
+}
+
+.waho-asset h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.waho-asset p {
+  max-width: 15rem;
+  color: #657386;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.dark .waho-asset p {
+  color: #a9b7c9;
+}
+
+.waho-asset svg {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 210px;
+  height: 150px;
+  opacity: 0.92;
+}
+
+.waho-services {
+  max-width: 1120px;
+  margin: 0 auto;
+  border-top: 1px solid var(--waho-line);
+}
+
+.waho-service {
+  display: grid;
+  grid-template-columns: 160px 1fr 280px;
+  align-items: center;
+  gap: 1.625rem;
+  border-bottom: 1px solid var(--waho-line);
+  padding: 2.125rem 0.25rem;
+  transform-origin: left center;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.waho-service:hover {
+  background: rgba(248, 250, 252, 0.86);
+  transform: translateX(8px);
+}
+
+.dark .waho-service:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.waho-service-num {
+  color: var(--waho-ink);
+  font-size: 4.35rem;
+  font-weight: 1000;
+  line-height: 0.8;
+}
+
+.waho-service h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 960;
+  text-transform: uppercase;
+}
+
+.waho-service p {
+  color: #687586;
+  font-size: 0.95rem;
+  line-height: 1.68;
+  margin: 0;
+}
+
+.dark .waho-service p {
+  color: #a9b7c9;
+}
+
+.waho-service-mini {
+  display: grid;
+  min-height: 86px;
+  gap: 0.5rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  padding: 1rem;
+}
+
+.dark .waho-service-mini {
+  background: #202326;
+}
+
+.waho-service-mini strong {
+  font-size: 1.45rem;
+}
+
+.waho-service-mini span {
+  color: #687586;
+  font-size: 0.75rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.waho-monitor {
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 1.75rem;
+  margin: 0 auto;
+}
+
+.waho-monitor p {
+  color: #95a5b8;
+  font-size: 1.0625rem;
+  font-weight: 660;
+  line-height: 1.75;
+}
+
+.waho-monitor-copy {
+  align-self: center;
+}
+
+.waho-title-meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 1.1rem 0 0.35rem;
+  padding: 0.45rem 0.6rem 0.45rem 0.9rem;
+}
+
+.waho-title-meter span {
+  color: #91a2b5;
+  font-size: 0.68rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-title-meter strong {
+  border-radius: 999px;
+  background: #eaf7ff;
+  color: #0c1724;
+  font-size: 0.8rem;
+  font-weight: 1000;
+  line-height: 1;
+  padding: 0.45rem 0.62rem;
+}
+
+.waho-dashboard-shell {
+  perspective: 1200px;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.waho-telemetry-chips {
+  display: grid;
+  max-width: 430px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0.8rem 0 1rem;
+}
+
+.waho-telemetry-chips span {
+  display: grid;
+  gap: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.045);
+  color: #8fa1b5;
+  font-size: 0.64rem;
+  font-weight: 1000;
+  padding: 0.65rem;
+  text-transform: uppercase;
+}
+
+.waho-telemetry-chips strong {
+  color: #eef7ff;
+  font-size: 0.96rem;
+  line-height: 1;
+}
+
+.waho-dashboard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.085),
+    rgba(255, 255, 255, 0.035)
+  );
+  padding: 1.375rem;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.waho-dashboard::before {
+  position: absolute;
+  right: -20%;
+  bottom: -34%;
+  width: 62%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(22, 140, 255, 0.28),
+    transparent 68%
+  );
+  content: '';
+  filter: blur(14px);
+}
+
+.waho-bars {
+  position: relative;
+  display: flex;
+  height: 280px;
+  align-items: end;
+  gap: 0.625rem;
+  padding: 1.875rem 0 0.5rem;
+}
+
+.waho-bar {
+  position: relative;
+  overflow: hidden;
+  min-width: 10px;
+  flex: 1;
+  border-radius: 999px 999px 0.5rem 0.5rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.waho-bar span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    var(--waho-cyan),
+    var(--waho-blue) 56%,
+    var(--waho-violet)
+  );
+  box-shadow: 0 0 30px rgba(22, 140, 255, 0.28);
+  transform-origin: center bottom;
+}
+
+.waho-metrics {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+.waho-metric {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.875rem;
+}
+
+.waho-metric strong {
+  display: block;
+  font-size: 1.75rem;
+}
+
+.waho-metric span {
+  color: #91a2b5;
+  font-size: 0.6875rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.waho-workflow-steps {
+  position: relative;
+  gap: 0;
+  padding: 0.2rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.625rem;
+  background: rgba(248, 250, 252, 0.82);
+}
+
+.waho-workflow-steps span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  background: transparent;
+  padding: 0.55rem 0.68rem;
+}
+
+.waho-workflow-steps span + span {
+  border-left: 1px solid var(--waho-line);
+  border-radius: 0;
+}
+
+.waho-workflow-steps strong {
+  color: var(--waho-blue);
+  font-size: 0.72rem;
+}
+
+.waho-workflow-board {
+  max-width: 1120px;
+  overflow: hidden;
+  border: 1px solid var(--waho-line);
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.58)),
+    var(--waho-paper);
+  box-shadow: 0 58px 130px -104px rgba(15, 23, 42, 0.9);
+  margin: 0 auto;
+}
+
+.dark .waho-workflow-board {
+  background: #202326;
+}
+
+.waho-workflow-board-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  border-bottom: 1px solid var(--waho-line);
+  padding: 1.125rem 1.25rem;
+}
+
+.waho-workflow-board-head strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: #172133;
+  font-size: 1.15rem;
+  font-weight: 980;
+}
+
+.dark .waho-workflow-board-head strong {
+  color: #f8fbff;
+}
+
+.waho-workflow-ready {
+  display: inline-grid;
+  gap: 0.25rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.82);
+  padding: 0.58rem 0.85rem;
+}
+
+.dark .waho-workflow-ready {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.waho-workflow-ready span,
+.waho-flow-metrics span {
+  color: #6a7582;
+  font-size: 0.66rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.dark .waho-workflow-ready span,
+.dark .waho-flow-metrics span {
+  color: #a9b7c9;
+}
+
+.waho-workflow-ready strong {
+  margin: 0;
+  color: var(--waho-blue);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.waho-workflow-grid {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+}
+
+.waho-workflow-rail-panel {
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid var(--waho-line);
+  background:
+    radial-gradient(circle at 24% 16%, rgba(98, 239, 255, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(248, 250, 252, 0.72), rgba(241, 245, 249, 0.58));
+  padding: 1.5rem;
+}
+
+.dark .waho-workflow-rail-panel {
+  background:
+    radial-gradient(circle at 24% 16%, rgba(98, 239, 255, 0.12), transparent 30%),
+    rgba(255, 255, 255, 0.04);
+}
+
+.waho-workflow-rail-panel > strong {
+  display: block;
+  max-width: 10rem;
+  margin-top: 0.45rem;
+  color: #172133;
+  font-size: 2rem;
+  font-weight: 1000;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.dark .waho-workflow-rail-panel > strong {
+  color: #f8fbff;
+}
+
+.waho-flow-path {
+  display: grid;
+  justify-items: start;
+  margin-top: 2rem;
+}
+
+.waho-flow-path span {
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #344252;
+  font-size: 0.75rem;
+  font-weight: 1000;
+  padding: 0.48rem 0.72rem;
+  text-transform: uppercase;
+}
+
+.dark .waho-flow-path span {
+  background: rgba(255, 255, 255, 0.06);
+  color: #d9e6f5;
+}
+
+.waho-flow-path i {
+  width: 1px;
+  height: 34px;
+  margin-left: 1.15rem;
+  background: linear-gradient(180deg, var(--waho-cyan), var(--waho-blue), var(--waho-pink));
+}
+
+.waho-flow-metrics {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 2rem;
+}
+
+.waho-flow-metrics div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  border-top: 1px solid var(--waho-line);
+  padding-top: 0.625rem;
+}
+
+.waho-flow-metrics strong {
+  color: #172133;
+  font-size: 0.88rem;
+  font-weight: 1000;
+}
+
+.dark .waho-flow-metrics strong {
+  color: #f8fbff;
+}
+
+.waho-workspace-wrap {
+  display: grid;
+}
+
+.waho-workspace-wrap > div + div {
+  border-top: 1px solid var(--waho-line);
+}
+
+.waho-workspace-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 230px;
+  padding: 1.35rem 1.5rem;
+  will-change: transform;
+}
+
+.waho-workspace-card:hover {
+  background: rgba(248, 250, 252, 0.62);
+}
+
+.dark .waho-workspace-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.waho-workspace-copy {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.waho-workspace-stepmark {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  padding-top: 0.15rem;
+}
+
+.waho-workspace-stepmark span {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid rgba(22, 140, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(22, 140, 255, 0.09);
+  color: var(--waho-blue);
+  font-size: 0.78rem;
+  font-weight: 1000;
+}
+
+.waho-workspace-stepmark i {
+  width: 1px;
+  height: 72px;
+  background: linear-gradient(180deg, var(--waho-blue), transparent);
+}
+
+.waho-workspace-card h3 {
+  margin: 0.45rem 0 0.55rem;
+  font-size: 1.75rem;
+  font-weight: 960;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.waho-workspace-card p {
+  max-width: 26rem;
+  color: #657386;
+  line-height: 1.72;
+  margin: 0;
+}
+
+.dark .waho-workspace-card p {
+  color: #a9b7c9;
+}
+
+.waho-workspace-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.95rem;
+}
+
+.waho-workspace-badges span {
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.86);
+  color: #526273;
+  font-size: 0.66rem;
+  font-weight: 1000;
+  padding: 0.42rem 0.58rem;
+  text-transform: uppercase;
+}
+
+.waho-workspace-badges span:first-child {
+  border-color: rgba(22, 193, 114, 0.22);
+  background: rgba(22, 193, 114, 0.08);
+  color: #0d9b70;
+}
+
+.dark .waho-workspace-badges span {
+  background: rgba(255, 255, 255, 0.05);
+  color: #b8c7d9;
+}
+
+.waho-sandbox {
+  position: relative;
+  min-height: 172px;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 0.5rem;
+  background: var(--waho-dark-soft);
+  color: #d9e6f5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.85;
+  overscroll-behavior-x: contain;
+  padding: 1.25rem;
+  scrollbar-color: rgba(98, 239, 255, 0.48) transparent;
+  scrollbar-width: thin;
+}
+
+.waho-sandbox::-webkit-scrollbar {
+  height: 5px;
+}
+
+.waho-sandbox::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(98, 239, 255, 0.36);
+}
+
+.waho-sandbox::before {
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(22, 140, 255, 0.18);
+  content: '';
+  filter: blur(50px);
+}
+
+.waho-sandbox > * {
+  position: relative;
+}
+
+.waho-sandbox-line {
+  display: grid;
+  width: max-content;
+  min-width: 100%;
+  grid-template-columns: minmax(6.4rem, max-content) max-content;
+  gap: 0.7rem;
+  opacity: 0.88;
+  white-space: nowrap;
+}
+
+.waho-sandbox-line .waho-code-blue {
+  min-width: 0;
+}
+
+.waho-sandbox-line:nth-child(2),
+.waho-sandbox-line:nth-child(4) {
+  opacity: 1;
+}
+
+.waho-sandbox-cursor {
+  display: block;
+  width: 9px;
+  height: 1rem;
+  margin-top: 0.35rem;
+  border-radius: 999px;
+  background: var(--waho-cyan);
+  box-shadow: 0 0 18px rgba(98, 239, 255, 0.72);
+}
+
+.waho-footer-band {
+  border-top: 1px solid var(--waho-line);
+  background: #e8eef4;
+  padding: 4.5rem 2.125rem;
+}
+
+.dark .waho-footer-band {
+  background: #151719;
+}
+
+.waho-footer-inner {
+  display: flex;
+  max-width: 1120px;
+  justify-content: space-between;
+  gap: 1.875rem;
+  margin: 0 auto;
+}
+
+.waho-footer-inner h2 {
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 1000;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.waho-footer-title span {
+  display: block;
+}
+
+.waho-footer-title span + span {
+  color: var(--waho-blue);
+  font-size: 0.82em;
+}
+
+.waho-footer-inner p {
+  max-width: 420px;
+  color: #5f6b77;
+  font-weight: 660;
+  line-height: 1.7;
+}
+
+.waho-footer-copy {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.waho-footer-system {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--waho-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  padding: 0.48rem 0.72rem;
+}
+
+.dark .waho-footer-system {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.waho-footer-system span {
+  color: #657386;
+  font-size: 0.68rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+.dark .waho-footer-system span {
+  color: #a9b7c9;
+}
+
+.waho-footer-system strong {
+  color: var(--waho-blue);
+  font-size: 0.9rem;
+  font-weight: 1000;
+}
+
+.dark .waho-footer-inner p {
+  color: #a9b7c9;
+}
+
+@media (max-width: 1200px) {
+  .waho-hero-title {
+    font-size: 12.25rem;
+  }
+
+  .waho-title {
+    font-size: 5rem;
+  }
+}
+
+@keyframes waho-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes waho-mark-float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-1deg);
+  }
+  50% {
+    transform: translate(-50%, -54%) rotate(1.2deg);
+  }
+}
+
+@keyframes waho-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -18px, 0);
+  }
+}
+
+@keyframes waho-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waho-dash {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+@keyframes waho-pulse-dot {
+  50% {
+    transform: scale(1.28);
+  }
+}
+
+@keyframes waho-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes waho-bar-breath {
+  50% {
+    filter: saturate(1.35) brightness(1.12);
+  }
+}
+
+@keyframes waho-cursor-blink {
+  50% {
+    opacity: 0.18;
+  }
+}
+
+@keyframes waho-engine-drift {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-14px);
+  }
+}
+
+@keyframes waho-engine-glow {
+  50% {
+    opacity: 0.84;
+    transform: translateX(-50%) scale(1.07);
+  }
+}
+
+@keyframes waho-orbit-breathe {
+  50% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes waho-bead-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -14px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .waho-hero-scene {
+    animation: waho-engine-drift 7.5s ease-in-out infinite;
+  }
+
+  .waho-engine-glow {
+    animation: waho-engine-glow 4.5s ease-in-out infinite;
+  }
+
+  .waho-art-orbit {
+    animation: waho-orbit-breathe 5.5s ease-in-out infinite;
+  }
+
+  .waho-art-orbit-b {
+    animation-delay: -1.5s;
+  }
+
+  .waho-art-bead {
+    animation: waho-bead-drift 6.5s ease-in-out infinite;
+  }
+
+  .waho-art-bead-b {
+    animation-delay: -2.1s;
+  }
+
+  .waho-eyebrow,
+  .waho-hero-title,
+  .waho-hero-subtitle,
+  .waho-hero-action,
+  .waho-hero-bottom {
+    animation: waho-fade-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .waho-eyebrow {
+    animation-delay: 50ms;
+  }
+
+  .waho-hero-title {
+    animation-delay: 120ms;
+  }
+
+  .waho-hero-subtitle {
+    animation-delay: 220ms;
+  }
+
+  .waho-hero-action {
+    animation-delay: 280ms;
+  }
+
+  .waho-hero-bottom {
+    animation-delay: 360ms;
+  }
+
+  .waho-live-dot {
+    animation: waho-pulse-dot 2.2s ease-in-out infinite;
+  }
+
+  .waho-bar span {
+    animation: waho-bar-breath 2.8s ease-in-out infinite;
+  }
+
+  .waho-sandbox-cursor {
+    animation: waho-cursor-blink 1.2s steps(1, end) infinite;
+  }
+}
+
+@media (max-width: 900px) {
+  .waho-story-spine {
+    display: none;
+  }
+
+  .waho-hero {
+    padding-inline: 1.125rem;
+  }
+
+  .waho-hero-title {
+    font-size: 8.5rem;
+  }
+
+  .waho-hero-subtitle,
+  .waho-section-head p {
+    font-size: 1.05rem;
+  }
+
+  .waho-hero-scene {
+    top: auto;
+    bottom: 7.5rem;
+    width: min(70vw, 500px);
+    min-width: 0;
+    opacity: 0.9;
+  }
+
+  .waho-hero-bottom,
+  .waho-feed-header,
+  .waho-section-head,
+  .waho-asset-strip,
+  .waho-service,
+  .waho-monitor,
+  .waho-workflow-grid,
+  .waho-workspace-card,
+  .waho-footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .waho-terminal {
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .waho-hero-chips {
+    justify-content: flex-start;
+  }
+
+  .waho-hero-stats {
+    justify-content: flex-start;
+  }
+
+  .waho-section {
+    padding-inline: 1.25rem;
+  }
+
+  .waho-section-stack {
+    padding-top: 6.25rem;
+  }
+
+  .waho-feed,
+  .waho-feed-inner {
+    min-height: 70svh;
+  }
+
+  .waho-feed-inner {
+    padding-block: 4.5rem;
+  }
+
+  .waho-feed-copy {
+    padding-inline: 1.25rem;
+  }
+
+  .waho-feed-title {
+    font-size: 3.65rem;
+    max-width: 28rem;
+  }
+
+  .waho-feed-console {
+    max-width: 360px;
+  }
+
+  .waho-feed-rail {
+    width: calc(100% - 2.5rem);
+  }
+
+  .waho-feed-track {
+    padding-inline: 1.25rem;
+  }
+
+  .waho-section-white,
+  .waho-section-dark,
+  .waho-section-stack {
+    border-radius: 2.625rem 2.625rem 0 0;
+  }
+
+  .waho-service-mini {
+    display: none;
+  }
+
+  .waho-service {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .waho-service-num {
+    border: 1px solid var(--waho-line);
+    border-radius: 999px;
+    background: rgba(248, 250, 252, 0.86);
+    color: var(--waho-blue);
+    font-size: 0.78rem;
+    line-height: 1;
+    padding: 0.42rem 0.58rem;
+  }
+
+  .waho-service h3,
+  .waho-workspace-card h3 {
+    font-size: 1.75rem;
+  }
+
+  .waho-service h3 {
+    line-height: 1.15;
+    text-transform: none;
+  }
+
+  .waho-title {
+    font-size: 3.25rem;
+  }
+
+  .waho-footer-inner h2 {
+    font-size: 2.8rem;
+  }
+
+  .waho-feed-card {
+    width: min(280px, 76vw);
+  }
+
+  .waho-workflow-rail-panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--waho-line);
+  }
+
+  .waho-flow-path {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .waho-flow-path i {
+    width: 24px;
+    height: 1px;
+    margin-left: 0;
+  }
+
+  .waho-workspace-card {
+    min-height: 0;
+  }
+
+  .waho-workspace-stepmark i {
+    height: 54px;
+  }
+}
+
+@media (max-width: 560px) {
+  .waho-hero-title {
+    font-size: 4.9rem;
+    line-height: 0.82;
+  }
+
+  .waho-hero {
+    min-height: 920px;
+  }
+
+  .waho-hero-scene {
+    bottom: 15.5rem;
+    width: 104vw;
+    opacity: 0.84;
+  }
+
+  .waho-hero-copy {
+    transform: translateY(-2.75rem);
+  }
+
+  .waho-chip {
+    font-size: 0.68rem;
+  }
+
+  .waho-title {
+    font-size: 2.65rem;
+  }
+
+  .waho-title-telemetry {
+    font-size: 2.7rem;
+  }
+
+  .waho-feed,
+  .waho-feed-inner {
+    min-height: 680px;
+  }
+
+  .waho-feed-title {
+    font-size: 2.55rem;
+    line-height: 0.9;
+  }
+
+  .waho-feed-copy p {
+    max-width: 18rem;
+  }
+
+  .waho-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .waho-route-panel,
+  .waho-telemetry-chips {
+    grid-template-columns: 1fr;
+  }
+
+  .waho-route-panel div + div {
+    border-top: 1px solid var(--waho-line);
+    border-left: 0;
+  }
+
+  .waho-workflow-steps {
+    width: 100%;
+  }
+
+  .waho-workflow-steps span {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .waho-workflow-board-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .waho-workflow-ready {
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+
+  .waho-workflow-rail-panel {
+    padding: 1.125rem;
+  }
+
+  .waho-workflow-rail-panel > strong {
+    max-width: none;
+    font-size: 1.45rem;
+  }
+
+  .waho-flow-metrics {
+    grid-template-columns: 1fr;
+    margin-top: 1.1rem;
+  }
+
+  .waho-workspace-card {
+    padding: 1.1rem;
+  }
+
+  .waho-workspace-copy {
+    gap: 0.75rem;
+  }
+
+  .waho-workspace-stepmark i {
+    display: none;
+  }
+
+  .waho-bars {
+    height: 220px;
+  }
+
+  .waho-sandbox {
+    min-height: 160px;
+    padding: 1rem;
+  }
+
+  .waho-sandbox-line {
+    grid-template-columns: minmax(5.35rem, max-content) max-content;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .waho-hero-title {
+    font-size: 4.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waho-home *,
+  .waho-home *::before,
+  .waho-home *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .waho-hero-scene {
+    transform: translateX(-50%);
+  }
+
+  .waho-story-spine {
+    display: none;
+  }
+}

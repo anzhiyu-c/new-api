@@ -21,8 +21,10 @@ import { useAuthStore } from '@/stores/auth-store'
 import { Markdown } from '@/components/ui/markdown'
 import { PublicLayout } from '@/components/layout'
 import { Footer } from '@/components/layout/components/footer'
-import { CTA, Features, Hero, HowItWorks, Stats } from './components'
+import { WahoAIHomePage } from './components/wahoai/wahoai-home-page'
+import { WahoAIHeaderLogo } from './components/wahoai/wahoai-logo'
 import { useHomePageContent } from './hooks'
+import './wahoai-home.css'
 
 export function Home() {
   const { t } = useTranslation()
@@ -61,12 +63,12 @@ export function Home() {
   }
 
   return (
-    <PublicLayout showMainContainer={false}>
-      <Hero isAuthenticated={isAuthenticated} />
-      <Stats />
-      <Features />
-      <HowItWorks />
-      <CTA isAuthenticated={isAuthenticated} />
+    <PublicLayout
+      showMainContainer={false}
+      logo={<WahoAIHeaderLogo />}
+      siteName='WahoAI'
+    >
+      <WahoAIHomePage isAuthenticated={isAuthenticated} />
       <Footer />
     </PublicLayout>
   )
