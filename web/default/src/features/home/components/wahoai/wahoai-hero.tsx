@@ -35,12 +35,12 @@ const rateRows = [
   {
     label: 'Usage multiplier',
     official: '1.0x billed',
-    wahoai: '0.2x billed',
+    wahoai: '0.3x billed',
   },
   {
     label: 'Same GPT request',
     official: 'Pay 100%',
-    wahoai: 'Pay 20%',
+    wahoai: 'Pay 30%',
   },
 ]
 
@@ -63,11 +63,11 @@ export function WahoAIHero(props: WahoAIHeroProps) {
             </div>
             <h1 className='waho-hero-title'>
               <span>{t('Save up to')}</span>
-              <strong>80%</strong>
+              <strong>70%</strong>
             </h1>
             <p className='waho-hero-subtitle'>
               {t(
-                'Official top-up is charged at 1:1. WahoAI keeps the same GPT all-model access, but bills usage at only 0.2x.'
+                'Official top-up is charged at 1:1. WahoAI keeps the same GPT all-model access, but bills usage at only 0.3x.'
               )}
             </p>
             <div className='waho-hero-actions'>
@@ -98,7 +98,7 @@ export function WahoAIHero(props: WahoAIHeroProps) {
           <div className='waho-rate-card' aria-label={t('GPT rate comparison')}>
             <div className='waho-rate-card-head'>
               <span>{t('Official vs WahoAI')}</span>
-              <strong>{t('Pay 20%, save 80%')}</strong>
+              <strong>{t('Pay 30%, save 70%')}</strong>
             </div>
             <div className='waho-rate-table' role='table'>
               <div className='waho-rate-row waho-rate-row-head' role='row'>
@@ -122,7 +122,7 @@ export function WahoAIHero(props: WahoAIHeroProps) {
             </div>
             <div className='waho-rate-example'>
               <span>{t('Savings example')}</span>
-              <strong>{t('Official ¥100 usage costs only ¥20 here')}</strong>
+              <strong>{t('Official ¥100 usage costs only ¥30 here')}</strong>
             </div>
           </div>
         </div>
@@ -135,12 +135,12 @@ export function WahoAIHero(props: WahoAIHeroProps) {
         </p>
         <div className='waho-hero-chips' aria-label={t('Gateway features')}>
           <span className='waho-chip'>{t('GPT all models')}</span>
-          <span className='waho-chip'>{t('0.2x usage rate')}</span>
+          <span className='waho-chip'>{t('0.3x usage rate')}</span>
           <span className='waho-chip'>{t('stable relay')}</span>
         </div>
         <div className='waho-hero-stats' aria-label={t('Gateway pulse')}>
           <div>
-            <strong>80%</strong>
+            <strong>70%</strong>
             <span>{t('saved')}</span>
           </div>
           <div>

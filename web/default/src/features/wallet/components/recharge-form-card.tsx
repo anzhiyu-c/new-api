@@ -16,7 +16,6 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useState, useEffect } from 'react'
 import { Gift, ExternalLink, Loader2, Receipt, WalletCards } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { formatNumber } from '@/lib/format'
@@ -34,6 +33,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { WAHOAI_REDEMPTION_CODE_URL } from '../constants'
 import {
   formatCurrency,
   getDiscountLabel,
@@ -110,14 +110,8 @@ export function RechargeFormCard({
   enableWaffoPancakeTopup,
 }: RechargeFormCardProps) {
   const { t } = useTranslation()
-  const [localAmount, setLocalAmount] = useState(topupAmount.toString())
-
-  useEffect(() => {
-    setLocalAmount(topupAmount.toString())
-  }, [topupAmount])
 
   const handleAmountChange = (value: string) => {
-    setLocalAmount(value)
     const numValue = parseInt(value) || 0
     if (numValue >= 0) {
       onTopupAmountChange(numValue)
@@ -282,7 +276,7 @@ export function RechargeFormCard({
                   <Input
                     id='topup-amount'
                     type='number'
-                    value={localAmount}
+                    value={topupAmount}
                     onChange={(e) => handleAmountChange(e.target.value)}
                     min={minTopup}
                     placeholder={`Minimum ${minTopup}`}
@@ -489,6 +483,18 @@ export function RechargeFormCard({
               </a>
             </p>
           )}
+          <p className='text-muted-foreground text-xs'>
+            {t('You can purchase a redemption code to recharge your balance.')}{' '}
+            <a
+              href={WAHOAI_REDEMPTION_CODE_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-foreground inline-flex items-center gap-1 font-medium underline-offset-4 hover:underline'
+            >
+              {t('Buy a redemption code')}
+              <ExternalLink className='h-3 w-3' />
+            </a>
+          </p>
         </div>
       ) : (
         <Alert className='border-t'>

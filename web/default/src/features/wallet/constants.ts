@@ -26,6 +26,8 @@ For commercial licensing, please contact support@quantumnous.com
  */
 export const DEFAULT_PRESET_MULTIPLIERS = [1, 5, 10, 30, 50, 100, 300, 500]
 
+export const WAHOAI_REDEMPTION_CODE_URL = 'https://catfk.com/shop/PX1UGYIR'
+
 /**
  * Payment method types
  */
