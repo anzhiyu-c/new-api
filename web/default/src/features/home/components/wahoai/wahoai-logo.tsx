@@ -17,9 +17,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { useTranslation } from 'react-i18next'
+import { WAHOAI_WORDMARK_LOGO } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-export const WAHOAI_HEADER_LOGO_SRC = '/brand/wahoai-cn-surgefish-v2-light.png'
+export const WAHOAI_HEADER_LOGO_SRC = WAHOAI_WORDMARK_LOGO
 
 interface WahoAIHeaderLogoProps {
   className?: string

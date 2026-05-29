@@ -204,10 +204,10 @@ export function PublicHeader(props: PublicHeaderProps) {
                 ? cn(
                     'bg-background/60 ring-border/50 rounded-2xl shadow-[0_2px_16px_-6px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(0,0,0,0.02)] ring-[0.5px] backdrop-blur-2xl dark:shadow-[0_2px_16px_-6px_rgba(0,0,0,0.4)]',
                     isLarge
-                      ? 'h-16 pr-2 pl-4 md:h-[4.5rem] md:rounded-[1.5rem] md:pr-2.5 md:pl-6'
+                      ? 'h-[4.5rem] pr-2 pl-4 md:h-20 md:rounded-[1.5rem] md:pr-2.5 md:pl-6'
                       : 'h-12 pr-1.5 pl-4'
                   )
-                : cn('px-2', isLarge ? 'h-20 md:h-24' : 'h-16')
+                : cn('px-2', isLarge ? 'h-24 md:h-28' : 'h-16')
             )}
           >
             {/* Logo */}
@@ -221,7 +221,9 @@ export function PublicHeader(props: PublicHeaderProps) {
               <div
                 className={cn(
                   'flex shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-105',
-                  isLarge ? 'h-12 w-36 sm:w-44 md:h-14 md:w-52' : 'size-7'
+                  isLarge
+                    ? 'h-14 w-44 sm:w-52 md:h-16 md:w-64 lg:w-72'
+                    : 'size-7'
                 )}
               >
                 {loading ? (

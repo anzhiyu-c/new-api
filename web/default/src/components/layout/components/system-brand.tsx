@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { WAHOAI_WORDMARK_LOGO } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { useStatus } from '@/hooks/use-status'
 import { useSystemConfig } from '@/hooks/use-system-config'
@@ -59,19 +60,19 @@ export function SystemBrand(props: SystemBrandProps) {
       <Link
         to='/'
         aria-label={t('Go to home')}
+        title={name}
         className={cn(
-          'text-foreground inline-flex h-7 items-center gap-1.5 rounded-md px-1.5 text-sm font-medium transition-colors outline-none select-none',
+          'inline-flex h-8 w-36 items-center rounded-md px-1.5 transition-colors outline-none select-none sm:w-40 md:w-44',
           'hover:bg-accent focus-visible:ring-ring/40 focus-visible:ring-2'
         )}
       >
-        <div className='flex size-5 items-center justify-center overflow-hidden rounded-md'>
-          <img
-            src={logo}
-            alt={t('Logo')}
-            className='size-full rounded-md object-cover'
-          />
-        </div>
-        <span className='max-w-[12rem] truncate'>{name}</span>
+        <img
+          src={WAHOAI_WORDMARK_LOGO}
+          alt={t('WahoAI logo')}
+          className='h-full w-full object-contain object-left'
+          width={1600}
+          height={320}
+        />
       </Link>
     )
   }
