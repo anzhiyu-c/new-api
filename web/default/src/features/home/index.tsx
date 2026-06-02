@@ -22,54 +22,14 @@ import { useAuthStore } from '@/stores/auth-store'
 import { Markdown } from '@/components/ui/markdown'
 import { PublicLayout } from '@/components/layout'
 import { Footer } from '@/components/layout/components/footer'
+import {
+  GOOGLE_ADS_HOME_CONVERSION_SEND_TO,
+  trackGoogleAdsConversion,
+} from '@/lib/google-ads'
 import { WahoAIHomePage } from './components/wahoai/wahoai-home-page'
 import { WahoAIHeaderLogo } from './components/wahoai/wahoai-logo'
 import { useHomePageContent } from './hooks'
 import './wahoai-home.css'
-
-const GOOGLE_ADS_ID = 'AW-18164689347'
-const GOOGLE_ADS_CONVERSION_SEND_TO =
-  'AW-18164689347/P_MzCKjhg68cEMPTzNVD'
-
-declare global {
-  interface Window {
-    dataLayer?: unknown[]
-    gtag?: (...args: unknown[]) => void
-    __newApiHomeGoogleAdsConversionTracked?: boolean
-  }
-}
-
-function ensureGoogleAdsTag() {
-  window.dataLayer = window.dataLayer || []
-  window.gtag =
-    window.gtag ||
-    ((...args: unknown[]) => {
-      window.dataLayer?.push(args)
-    })
-
-  const tagSrc = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`
-  if (!document.querySelector(`script[src="${tagSrc}"]`)) {
-    const script = document.createElement('script')
-    script.async = true
-    script.src = tagSrc
-    document.head.appendChild(script)
-  }
-
-  window.gtag('js', new Date())
-  window.gtag('config', GOOGLE_ADS_ID)
-}
-
-function trackHomeGoogleAdsConversion() {
-  if (window.__newApiHomeGoogleAdsConversionTracked) return
-
-  ensureGoogleAdsTag()
-  window.gtag?.('event', 'conversion', {
-    send_to: GOOGLE_ADS_CONVERSION_SEND_TO,
-    value: 1.0,
-    currency: 'USD',
-  })
-  window.__newApiHomeGoogleAdsConversionTracked = true
-}
 
 export function Home() {
   const { t } = useTranslation()
@@ -78,7 +38,9 @@ export function Home() {
   const { content, isLoaded, isUrl } = useHomePageContent()
 
   useEffect(() => {
-    trackHomeGoogleAdsConversion()
+    trackGoogleAdsConversion(GOOGLE_ADS_HOME_CONVERSION_SEND_TO, {
+      onceKey: 'home',
+    })
   }, [])
 
   if (!isLoaded) {

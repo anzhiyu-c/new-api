@@ -57,6 +57,10 @@ import {
   getAffiliateCode,
   saveAffiliateCode,
 } from '@/features/auth/lib/storage'
+import {
+  GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO,
+  trackGoogleAdsConversion,
+} from '@/lib/google-ads'
 
 export function SignUpForm({
   className,
@@ -174,7 +178,18 @@ export function SignUpForm({
 
       if (res?.success) {
         toast.success(t('Account created! Please sign in'))
-        redirectToLogin()
+        let didRedirect = false
+        const redirectOnce = () => {
+          if (didRedirect) return
+          didRedirect = true
+          redirectToLogin()
+        }
+
+        trackGoogleAdsConversion(GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO, {
+          onceKey: 'register',
+          eventCallback: redirectOnce,
+        })
+        window.setTimeout(redirectOnce, 1000)
       } else {
         toast.error(res?.message || t('Failed to create account'))
       }
