@@ -58,6 +58,7 @@ import {
   saveAffiliateCode,
 } from '@/features/auth/lib/storage'
 import {
+  ensureGoogleAdsTag,
   GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO,
   trackGoogleAdsConversion,
 } from '@/lib/google-ads'
@@ -143,6 +144,10 @@ export function SignUpForm({
     if (aff) {
       saveAffiliateCode(aff)
     }
+  }, [])
+
+  useEffect(() => {
+    ensureGoogleAdsTag()
   }, [])
 
   async function onSubmit(data: z.infer<typeof registerFormSchema>) {

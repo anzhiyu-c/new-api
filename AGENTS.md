@@ -155,7 +155,7 @@ The production New API deployment target for this maintained fork is:
 - SSH host: `154.89.153.33`
 - SSH port: `22`
 - SSH user: `root` unless an operator provides a different user for the deployment window
-- Public domain: `https://ne.dexcloud.live`
+- Public domain: `https://wahoai.com`
 - Compose directory: `/opt/new-api-deploy`
 - Main service/container: `new-api`
 - Docker image repository: `anheyu/new-api`
@@ -166,5 +166,5 @@ Production deployment rules:
 - If an operator provides a password during a session, treat it as ephemeral secret material: use it only for the requested deployment or inspection, do not echo it back, and do not persist it.
 - Prefer immutable release tags or digests for production deployment; do not rely on `latest` as the audit identifier even when the compose file uses `latest`.
 - Before changing production, record the current container image, digest when available, compose file image line, container status, and `/api/status` result.
-- Standard production update flow is: build and publish `anheyu/new-api:<fork-scoped-tag>`, SSH to the host, `cd /opt/new-api-deploy`, update/pull the intended image, restart only the `new-api` service, then verify `https://ne.dexcloud.live/api/status` and the affected public UI/API paths.
+- Standard production update flow is: build and publish `anheyu/new-api:<fork-scoped-tag>`, SSH to the host, `cd /opt/new-api-deploy`, update/pull the intended image, restart only the `new-api` service, then verify `https://wahoai.com/api/status` and the affected public UI/API paths.
 - Keep New API's supporting services (`new-api-postgres`, `new-api-redis`, `cli-proxy-api`, Nginx) untouched unless the user explicitly asks to modify them and the impact is stated first.
