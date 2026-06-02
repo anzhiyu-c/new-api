@@ -6,6 +6,7 @@ import (
 
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/dto"
+	"github.com/QuantumNous/new-api/model"
 	"github.com/QuantumNous/new-api/pkg/billingexpr"
 	relaycommon "github.com/QuantumNous/new-api/relay/common"
 	"github.com/QuantumNous/new-api/types"
@@ -79,4 +80,13 @@ func TestResolveChannelTestUserIDUsesRequestUser(t *testing.T) {
 
 	require.NoError(t, err)
 	require.Equal(t, 2, userID)
+}
+
+func TestBuildTestRequestAutoDetectsGPTImage2(t *testing.T) {
+	req := buildTestRequest("gpt-image-2", "", &model.Channel{}, false)
+
+	imageReq, ok := req.(*dto.ImageRequest)
+	require.True(t, ok, "expected gpt-image-2 to use image generation test request, got %T", req)
+	require.Equal(t, "gpt-image-2", imageReq.Model)
+	require.Equal(t, "a cute cat", imageReq.Prompt)
 }
