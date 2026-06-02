@@ -34,6 +34,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[]
     gtag?: (...args: unknown[]) => void
+    gtag_report_conversion?: (url?: string) => false
     __newApiGoogleAdsConversionsTracked?: Record<string, boolean>
   }
 }
@@ -56,6 +57,25 @@ export function ensureGoogleAdsTag() {
 
   window.gtag('js', new Date())
   window.gtag('config', GOOGLE_ADS_ID)
+  window.gtag_report_conversion = gtag_report_conversion
+}
+
+export function gtag_report_conversion(url?: string): false {
+  const callback = function () {
+    if (typeof url !== 'undefined') {
+      window.location.href = url
+    }
+  }
+
+  ensureGoogleAdsTag()
+  window.gtag?.('event', 'conversion', {
+    send_to: GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO,
+    value: 1.0,
+    currency: 'USD',
+    event_callback: callback,
+  })
+
+  return false
 }
 
 export function trackGoogleAdsConversion(
@@ -87,4 +107,3 @@ export function trackGoogleAdsConversion(
     tracked[options.onceKey] = true
   }
 }
-

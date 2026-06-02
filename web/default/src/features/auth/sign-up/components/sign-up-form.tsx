@@ -59,8 +59,7 @@ import {
 } from '@/features/auth/lib/storage'
 import {
   ensureGoogleAdsTag,
-  GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO,
-  trackGoogleAdsConversion,
+  gtag_report_conversion,
 } from '@/lib/google-ads'
 
 export function SignUpForm({
@@ -150,6 +149,10 @@ export function SignUpForm({
     ensureGoogleAdsTag()
   }, [])
 
+  function handleRegisterConversionClick() {
+    gtag_report_conversion()
+  }
+
   async function onSubmit(data: z.infer<typeof registerFormSchema>) {
     if (requiresLegalConsent && !agreedToLegal) {
       toast.error(legalConsentErrorMessage)
@@ -183,18 +186,7 @@ export function SignUpForm({
 
       if (res?.success) {
         toast.success(t('Account created! Please sign in'))
-        let didRedirect = false
-        const redirectOnce = () => {
-          if (didRedirect) return
-          didRedirect = true
-          redirectToLogin()
-        }
-
-        trackGoogleAdsConversion(GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO, {
-          onceKey: 'register',
-          eventCallback: redirectOnce,
-        })
-        window.setTimeout(redirectOnce, 1000)
+        window.setTimeout(redirectToLogin, 1000)
       } else {
         toast.error(res?.message || t('Failed to create account'))
       }
@@ -387,6 +379,7 @@ export function SignUpForm({
             (requiresLegalConsent && !agreedToLegal) ||
             !turnstileReady
           }
+          onClick={handleRegisterConversionClick}
         >
           {isLoading ? <Loader2 className='h-4 w-4 animate-spin' /> : null}
           {t('Create account')}
