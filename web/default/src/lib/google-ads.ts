@@ -22,6 +22,9 @@ export const GOOGLE_ADS_HOME_CONVERSION_SEND_TO =
   'AW-18164689347/P_MzCKjhg68cEMPTzNVD'
 export const GOOGLE_ADS_REGISTER_CONVERSION_SEND_TO =
   'AW-18164689347/AyVYCK2R0LccEMPTzNVD'
+const GOOGLE_ADS_REGISTER_CONVERSION_ID = '18164689347'
+const GOOGLE_ADS_REGISTER_CONVERSION_LABEL = 'AyVYCK2R0LccEMPTzNVD'
+const GOOGLE_ADS_REGISTER_FALLBACK_DELAY_MS = 1200
 
 type GoogleAdsEventParams = {
   send_to: string
@@ -61,6 +64,7 @@ export function ensureGoogleAdsTag() {
 }
 
 export function gtag_report_conversion(url?: string): false {
+  const startedAt = performance.now()
   const callback = function () {
     if (typeof url !== 'undefined') {
       window.location.href = url
@@ -75,7 +79,47 @@ export function gtag_report_conversion(url?: string): false {
     event_callback: callback,
   })
 
+  window.setTimeout(() => {
+    if (!hasRegisterConversionRequest(startedAt)) {
+      fireRegisterConversionPixel()
+    }
+  }, GOOGLE_ADS_REGISTER_FALLBACK_DELAY_MS)
+
   return false
+}
+
+function hasRegisterConversionRequest(startedAt: number) {
+  return performance
+    .getEntriesByType('resource')
+    .some((entry) => {
+      if (entry.startTime < startedAt) return false
+      return (
+        entry.name.includes(
+          `/pagead/conversion/${GOOGLE_ADS_REGISTER_CONVERSION_ID}/`
+        ) ||
+        entry.name.includes(
+          `/pagead/1p-conversion/${GOOGLE_ADS_REGISTER_CONVERSION_ID}/`
+        )
+      )
+    })
+}
+
+function fireRegisterConversionPixel() {
+  const params = new URLSearchParams({
+    value: '1.0',
+    currency_code: 'USD',
+    label: GOOGLE_ADS_REGISTER_CONVERSION_LABEL,
+    guid: 'ON',
+    script: '0',
+    url: window.location.href,
+  })
+  const image = new Image(1, 1)
+  image.alt = ''
+  image.referrerPolicy = 'strict-origin-when-cross-origin'
+  image.style.display = 'none'
+  image.src = `https://www.googleadservices.com/pagead/conversion/${GOOGLE_ADS_REGISTER_CONVERSION_ID}/?${params.toString()}`
+  document.body?.appendChild(image)
+  window.setTimeout(() => image.remove(), 10000)
 }
 
 export function trackGoogleAdsConversion(
