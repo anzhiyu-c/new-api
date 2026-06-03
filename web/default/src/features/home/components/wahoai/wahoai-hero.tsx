@@ -30,7 +30,7 @@ const modelPriceRows = [
   {
     name: 'GPT-5.5',
     provider: 'OpenAI · gpt-5.5',
-    multiplier: '0.2x',
+    multiplier: '0.3x',
     inputPrice: '$1.40',
     outputPrice: '$4.20',
     savings: '72%-86%',
