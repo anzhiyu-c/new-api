@@ -155,6 +155,7 @@ The production New API deployment target for this maintained fork is:
 - SSH host: `154.89.153.33`
 - SSH port: `22`
 - SSH user: `root` unless an operator provides a different user for the deployment window
+- SSH access: key-based login from this workstation is configured; use `ssh root@154.89.153.33` for production deployment checks.
 - Public domain: `https://wahoai.com`
 - Compose directory: `/opt/new-api-deploy`
 - Main service/container: `new-api`
@@ -163,7 +164,7 @@ The production New API deployment target for this maintained fork is:
 Production deployment rules:
 
 - Never commit or write production passwords, private keys, API keys, database DSNs, Redis passwords, session secrets, cookies, or tokens into repository files, docs, prompts, logs, or rule files.
-- If an operator provides a password during a session, treat it as ephemeral secret material: use it only for the requested deployment or inspection, do not echo it back, and do not persist it.
+- Do not persist plaintext SSH passwords. If password login is needed during a session, use it only to establish/repair key-based access, then deploy through SSH key auth.
 - Prefer immutable release tags or digests for production deployment; do not rely on `latest` as the audit identifier even when the compose file uses `latest`.
 - Before changing production, record the current container image, digest when available, compose file image line, container status, and `/api/status` result.
 - Standard production update flow is: build and publish `anheyu/new-api:<fork-scoped-tag>`, SSH to the host, `cd /opt/new-api-deploy`, update/pull the intended image, restart only the `new-api` service, then verify `https://wahoai.com/api/status` and the affected public UI/API paths.
