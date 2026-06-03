@@ -338,7 +338,7 @@ For commercial licensing, please contact support@quantumnous.com
   position: relative;
   z-index: 5;
   margin: auto 0;
-  width: min(1180px, 100%);
+  width: min(1320px, 100%);
   align-self: center;
   text-align: left;
   transform: translateY(-1.5vh);
@@ -346,9 +346,9 @@ For commercial licensing, please contact support@quantumnous.com
 
 .waho-hero-main {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(430px, 1.08fr);
+  grid-template-columns: minmax(0, 0.66fr) minmax(640px, 1.34fr);
   align-items: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: 3.5rem;
 }
 
 .waho-hero-pitch {
@@ -460,141 +460,132 @@ For commercial licensing, please contact support@quantumnous.com
 
 .waho-rate-card {
   overflow: hidden;
-  border: 1px solid rgba(22, 140, 255, 0.2);
-  border-radius: 1.35rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1.25rem;
   background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.88),
-      rgba(255, 255, 255, 0.62)
-    ),
-    var(--waho-paper);
+    linear-gradient(180deg, rgba(28, 31, 42, 0.96), rgba(7, 10, 18, 0.97)),
+    #080b14;
+  color: #f8fafc;
   box-shadow: 0 52px 130px -88px rgba(15, 23, 42, 0.92);
   backdrop-filter: blur(22px);
 }
 
 .dark .waho-rate-card {
-  background:
-    linear-gradient(180deg, rgba(32, 35, 38, 0.9), rgba(32, 35, 38, 0.64)),
-    var(--waho-paper);
   box-shadow: 0 52px 130px -92px rgba(0, 0, 0, 0.96);
 }
 
 .waho-rate-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px solid var(--waho-line);
-  padding: 1rem 1.1rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  padding: 1.35rem 1.5rem 1.2rem;
+  text-align: center;
 }
 
 .waho-rate-card-head span {
-  color: var(--waho-muted);
-  font-size: 0.78rem;
-  font-weight: 1000;
-  text-transform: uppercase;
-}
-
-.waho-rate-card-head strong {
-  color: var(--waho-blue);
-  font-size: clamp(1.2rem, 2.2vw, 2rem);
-  font-weight: 1000;
-  white-space: nowrap;
-}
-
-.waho-rate-table {
-  display: grid;
-}
-
-.waho-rate-row {
-  display: grid;
-  grid-template-columns: minmax(7.5rem, 1fr) minmax(7.5rem, 1fr) minmax(
-      8rem,
-      1.05fr
-    );
-  align-items: stretch;
-  border-bottom: 1px solid var(--waho-line);
-}
-
-.waho-rate-row > * {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  border-right: 1px solid var(--waho-line);
-  padding: 0.95rem 1rem;
-}
-
-.waho-rate-row > *:last-child {
-  border-right: 0;
-}
-
-.waho-rate-row span {
-  color: #475569;
-  font-size: 0.92rem;
-  font-weight: 760;
-}
-
-.dark .waho-rate-row span {
-  color: #c0ccd9;
-}
-
-.waho-rate-row strong {
-  background: rgba(22, 140, 255, 0.08);
-  color: var(--waho-blue);
-  font-size: 0.95rem;
-  font-weight: 1000;
-}
-
-.waho-rate-item {
-  color: #142033 !important;
-  font-weight: 950 !important;
-}
-
-.dark .waho-rate-item {
-  color: #f8fbff !important;
-}
-
-.waho-rate-row-head {
-  background: rgba(15, 23, 42, 0.035);
-}
-
-.dark .waho-rate-row-head {
-  background: rgba(255, 255, 255, 0.045);
-}
-
-.waho-rate-row-head span {
-  color: #142033;
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.72rem;
   font-weight: 1000;
   text-transform: uppercase;
 }
 
-.dark .waho-rate-row-head span {
-  color: #e5eef8;
+.waho-rate-card-head strong {
+  color: #f8fafc;
+  font-size: 2.55rem;
+  font-weight: 1000;
+  line-height: 1.08;
 }
 
-.waho-rate-example {
-  display: flex;
+.waho-rate-card-head p {
+  max-width: 39rem;
+  color: #9aa4b2;
+  font-size: 0.95rem;
+  font-weight: 780;
+  line-height: 1.5;
+}
+
+.waho-rate-table-wrap {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.waho-rate-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.waho-rate-table th,
+.waho-rate-table td {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 1.12rem 1.35rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.waho-rate-table thead th {
+  color: #8b95a5;
+  font-size: 0.78rem;
+  font-weight: 1000;
+}
+
+.waho-rate-table thead th:first-child {
+  width: 27%;
+}
+
+.waho-rate-table tbody th strong,
+.waho-rate-price {
+  display: block;
+  color: #f8fafc;
+  font-size: 1.08rem;
+  font-weight: 1000;
+  line-height: 1.16;
+}
+
+.waho-rate-table tbody th span,
+.waho-rate-table tbody td > span:not(.waho-rate-save),
+.waho-rate-table tbody td > strong + span {
+  display: block;
+  margin-top: 0.45rem;
+  color: #687386;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.waho-rate-multiplier {
+  display: block;
+  margin-top: 0 !important;
+  color: #c4b5fd !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.02rem !important;
+  font-weight: 1000;
+}
+
+.waho-rate-price {
+  color: #36d99a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.12rem;
+}
+
+.waho-rate-save {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  background: #0b111c;
-  color: #eff6ff;
-  padding: 1rem 1.1rem;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(190, 59, 92, 0.42);
+  color: #ff8fa7;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  line-height: 1;
+  padding: 0.42rem 0.68rem;
 }
 
-.waho-rate-example span {
-  color: rgba(239, 246, 255, 0.64);
-  font-size: 0.75rem;
-  font-weight: 1000;
-  text-transform: uppercase;
-}
-
-.waho-rate-example strong {
-  font-size: 1rem;
-  font-weight: 1000;
-  text-align: right;
+.waho-rate-table tbody tr:last-child th,
+.waho-rate-table tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 .waho-hero-bottom {
@@ -2382,23 +2373,13 @@ For commercial licensing, please contact support@quantumnous.com
   }
 
   .waho-rate-card-head {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.3rem;
+    justify-items: start;
+    text-align: left;
   }
 
   .waho-rate-card-head strong {
+    font-size: 2.15rem;
     white-space: normal;
-  }
-
-  .waho-rate-example {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .waho-rate-example strong {
-    text-align: left;
   }
 
   .waho-hero-chips {
@@ -2574,60 +2555,21 @@ For commercial licensing, please contact support@quantumnous.com
     border-radius: 1rem;
   }
 
-  .waho-rate-card-head,
-  .waho-rate-example {
-    padding: 0.74rem 0.8rem;
+  .waho-rate-card-head {
+    padding: 0.95rem 1rem;
   }
 
   .waho-rate-table {
-    gap: 0;
+    min-width: 660px;
   }
 
-  .waho-rate-row-head {
-    display: none;
+  .waho-rate-card-head strong {
+    font-size: 1.6rem;
   }
 
-  .waho-rate-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.42rem;
-    border-bottom: 1px solid var(--waho-line);
-    padding: 0.62rem 0.8rem;
-  }
-
-  .waho-rate-row > * {
-    border-right: 0;
-    padding: 0;
-  }
-
-  .waho-rate-row > * + * {
-    margin-top: 0;
-  }
-
-  .waho-rate-item {
-    grid-column: 1 / -1;
-    font-size: 0.76rem !important;
-    text-transform: uppercase;
-  }
-
-  .waho-rate-row [data-rate-label] {
-    display: grid;
-    align-content: start;
-    grid-template-columns: 1fr;
-    gap: 0.2rem;
-    border-radius: 0.7rem;
-    padding: 0.42rem 0.58rem;
-  }
-
-  .waho-rate-row [data-rate-label]::before {
-    color: var(--waho-muted);
-    content: attr(data-rate-label);
-    font-size: 0.62rem;
-    font-weight: 1000;
-    text-transform: uppercase;
-  }
-
-  .waho-rate-row strong[data-rate-label] {
-    background: rgba(22, 140, 255, 0.1);
+  .waho-rate-table th,
+  .waho-rate-table td {
+    padding: 0.85rem 0.95rem;
   }
 
   .waho-hero-bottom {

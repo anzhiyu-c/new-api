@@ -26,21 +26,36 @@ interface WahoAIHeroProps {
   isAuthenticated: boolean
 }
 
-const rateRows = [
+const modelPriceRows = [
   {
-    label: 'Recharge ratio',
-    official: '1 RMB = 1 USD',
-    wahoai: '1 RMB = 1 USD credit',
+    name: 'GPT-5.5',
+    provider: 'OpenAI · gpt-5.5',
+    multiplier: '0.2x',
+    inputPrice: '$1.40',
+    outputPrice: '$4.20',
+    savings: '72%-86%',
+    officialInput: '$5.00',
+    officialOutput: '$30.00',
   },
   {
-    label: 'Usage multiplier',
-    official: '1.0x billed',
-    wahoai: '0.3x billed',
+    name: 'Claude Opus 4.8',
+    provider: 'Anthropic · claude-opus-4.8',
+    multiplier: '4x',
+    inputPrice: '$4.00',
+    outputPrice: '$20.00',
+    savings: '20%',
+    officialInput: '$5.00',
+    officialOutput: '$25.00',
   },
   {
-    label: 'Same GPT request',
-    official: 'Pay 100%',
-    wahoai: 'Pay 30%',
+    name: 'Gemini 3.5 Flash',
+    provider: 'Google · gemini-3.5-flash',
+    multiplier: '1x',
+    inputPrice: '$0.51',
+    outputPrice: '$2.06',
+    savings: '66%-77%',
+    officialInput: '$1.50',
+    officialOutput: '$9.00',
   },
 ]
 
@@ -59,16 +74,14 @@ export function WahoAIHero(props: WahoAIHeroProps) {
           <div className='waho-hero-pitch'>
             <div className='waho-eyebrow'>
               <span className='waho-live-dot' aria-hidden />
-              {t('GPT all-model relay pricing')}
+              {t('Mainstream model pricing')}
             </div>
             <h1 className='waho-hero-title'>
               <span>{t('Save up to')}</span>
-              <strong>70%</strong>
+              <strong>86%</strong>
             </h1>
             <p className='waho-hero-subtitle'>
-              {t(
-                'Official top-up is charged at 1:1. WahoAI keeps the same GPT all-model access, but bills usage at only 0.3x.'
-              )}
+              {t('Compare OpenAI, Claude, and Gemini pricing per 1M tokens.')}
             </p>
             <div className='waho-hero-actions'>
               <Button
@@ -95,34 +108,67 @@ export function WahoAIHero(props: WahoAIHeroProps) {
             </div>
           </div>
 
-          <div className='waho-rate-card' aria-label={t('GPT rate comparison')}>
+          <div
+            className='waho-rate-card'
+            aria-label={t('Model price comparison')}
+          >
             <div className='waho-rate-card-head'>
-              <span>{t('Official vs WahoAI')}</span>
-              <strong>{t('Pay 30%, save 70%')}</strong>
+              <span>{t('Model price comparison')}</span>
+              <strong>{t('YuyuAPI model pricing')}</strong>
+              <p>
+                {t(
+                  'Prices are shown per 1M tokens and compare official unit prices against WahoAI routing discounts.'
+                )}
+              </p>
             </div>
-            <div className='waho-rate-table' role='table'>
-              <div className='waho-rate-row waho-rate-row-head' role='row'>
-                <span role='columnheader'>{t('Item')}</span>
-                <span role='columnheader'>{t('Official')}</span>
-                <span role='columnheader'>WahoAI</span>
-              </div>
-              {rateRows.map((row) => (
-                <div className='waho-rate-row' role='row' key={row.label}>
-                  <span className='waho-rate-item' role='cell'>
-                    {t(row.label)}
-                  </span>
-                  <span data-rate-label={t('Official')} role='cell'>
-                    {t(row.official)}
-                  </span>
-                  <strong data-rate-label='WahoAI' role='cell'>
-                    {t(row.wahoai)}
-                  </strong>
-                </div>
-              ))}
-            </div>
-            <div className='waho-rate-example'>
-              <span>{t('Savings example')}</span>
-              <strong>{t('Official ¥100 usage costs only ¥30 here')}</strong>
+            <div className='waho-rate-table-wrap'>
+              <table className='waho-rate-table'>
+                <thead>
+                  <tr>
+                    <th>{t('Model')}</th>
+                    <th>{t('Multiplier')}</th>
+                    <th>{t('Input price')}</th>
+                    <th>{t('Output price')}</th>
+                    <th>{t('vs official')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {modelPriceRows.map((row) => (
+                    <tr key={row.name}>
+                      <th scope='row'>
+                        <strong>{row.name}</strong>
+                        <span>{row.provider}</span>
+                      </th>
+                      <td>
+                        <span className='waho-rate-multiplier'>
+                          {row.multiplier}
+                        </span>
+                      </td>
+                      <td>
+                        <strong className='waho-rate-price'>
+                          {row.inputPrice}
+                        </strong>
+                        <span>/ 1M tokens</span>
+                      </td>
+                      <td>
+                        <strong className='waho-rate-price'>
+                          {row.outputPrice}
+                        </strong>
+                        <span>/ 1M tokens</span>
+                      </td>
+                      <td>
+                        <span className='waho-rate-save'>
+                          {t('Save discount')} {row.savings}
+                        </span>
+                        <span>
+                          {t('Official')} {row.officialInput} /{' '}
+                          {row.officialOutput}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -130,26 +176,26 @@ export function WahoAIHero(props: WahoAIHeroProps) {
 
       <div className='waho-hero-bottom'>
         <p className='waho-hero-note'>
-          {t('Same GPT all-model capability.')} <em>{t('Lower rate.')}</em>{' '}
-          {t('Stable relay.')}
+          {t('Same mainstream model access.')}{' '}
+          <em>{t('Lower routed price.')}</em> {t('Stable relay.')}
         </p>
         <div className='waho-hero-chips' aria-label={t('Gateway features')}>
-          <span className='waho-chip'>{t('GPT all models')}</span>
-          <span className='waho-chip'>{t('0.3x usage rate')}</span>
+          <span className='waho-chip'>{t('mainstream models')}</span>
+          <span className='waho-chip'>{t('per-model rates')}</span>
           <span className='waho-chip'>{t('stable relay')}</span>
         </div>
         <div className='waho-hero-stats' aria-label={t('Gateway pulse')}>
           <div>
-            <strong>70%</strong>
+            <strong>86%</strong>
             <span>{t('saved')}</span>
           </div>
           <div>
-            <strong>5x</strong>
-            <span>{t('more usage')}</span>
+            <strong>3</strong>
+            <span>{t('models compared')}</span>
           </div>
           <div>
-            <strong>99.99%</strong>
-            <span>{t('uptime')}</span>
+            <strong>1M</strong>
+            <span>{t('token pricing')}</span>
           </div>
         </div>
       </div>
