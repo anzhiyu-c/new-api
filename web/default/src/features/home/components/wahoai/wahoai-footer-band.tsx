@@ -20,9 +20,10 @@ import { useTranslation } from 'react-i18next'
 import { IconTelegram, IconWeChat } from '@/assets/brand-icons'
 import { AnimateInView } from '@/components/animate-in-view'
 
-const SUPPORT_WECHAT_QR_SRC = 'https://be.dexcloud.live/wechat-qr.png'
-const SUPPORT_WECHAT_ID = 'even2020519'
-const SUPPORT_TELEGRAM_ID = '@jasonless'
+export const SUPPORT_WECHAT_QR_SRC = 'https://be.dexcloud.live/wechat-qr.png'
+export const SUPPORT_WECHAT_ID = 'even2020519'
+export const SUPPORT_TELEGRAM_ID = '@jasonless'
+export const SUPPORT_TELEGRAM_URL = 'https://t.me/jasonless'
 
 export function WahoAIFooterBand() {
   const { t } = useTranslation()
@@ -67,7 +68,7 @@ export function WahoAIFooterBand() {
                 </div>
                 <a
                   className='waho-support-contact'
-                  href='https://t.me/jasonless'
+                  href={SUPPORT_TELEGRAM_URL}
                   target='_blank'
                   rel='noreferrer'
                 >
