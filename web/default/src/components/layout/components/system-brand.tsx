@@ -18,15 +18,16 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { WAHOAI_WORDMARK_LOGO } from '@/lib/constants'
-import { cn } from '@/lib/utils'
-import { useStatus } from '@/hooks/use-status'
-import { useSystemConfig } from '@/hooks/use-system-config'
+
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { useStatus } from '@/hooks/use-status'
+import { useSystemConfig } from '@/hooks/use-system-config'
+import { WAHOAI_WORDMARK_LOGO } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 
 type SystemBrandProps = {
   defaultName?: string

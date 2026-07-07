@@ -17,8 +17,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import type { TFunction } from 'i18next'
-import dayjs from '@/lib/dayjs'
+
 import { getCurrencyDisplay } from '@/lib/currency'
+import dayjs from '@/lib/dayjs'
 import type { SubscriptionPlan } from '../types'
 
 function formatDecimalAmount(value: number, maxDigits: number): string {

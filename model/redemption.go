@@ -89,7 +89,7 @@ func GetAllRedemptions(startIdx int, num int) (redemptions []*Redemption, total 
 	return redemptions, total, nil
 }
 
-func SearchRedemptions(keyword string, startIdx int, num int) (redemptions []*Redemption, total int64, err error) {
+func SearchRedemptions(keyword string, status string, startIdx int, num int) (redemptions []*Redemption, total int64, err error) {
 	tx := DB.Begin()
 	if tx.Error != nil {
 		return nil, 0, tx.Error
@@ -100,14 +100,36 @@ func SearchRedemptions(keyword string, startIdx int, num int) (redemptions []*Re
 		}
 	}()
 
-	// Build query based on keyword type
 	query := tx.Model(&Redemption{})
 
-	// Only try to convert to ID if the string represents a valid integer
-	if id, err := strconv.Atoi(keyword); err == nil {
-		query = query.Where("id = ? OR name LIKE ?", id, keyword+"%")
-	} else {
-		query = query.Where("name LIKE ?", keyword+"%")
+	if keyword != "" {
+		if id, err := strconv.Atoi(keyword); err == nil {
+			query = query.Where("id = ? OR name LIKE ?", id, keyword+"%")
+		} else {
+			query = query.Where("name LIKE ?", keyword+"%")
+		}
+	}
+
+	if status != "" {
+		now := common.GetTimestamp()
+		switch status {
+		case "expired":
+			query = query.Where(
+				"status = ? AND expired_time != 0 AND expired_time < ?",
+				common.RedemptionCodeStatusEnabled,
+				now,
+			)
+		case strconv.Itoa(common.RedemptionCodeStatusEnabled):
+			query = query.Where(
+				"status = ? AND (expired_time = 0 OR expired_time >= ?)",
+				common.RedemptionCodeStatusEnabled,
+				now,
+			)
+		case strconv.Itoa(common.RedemptionCodeStatusDisabled):
+			query = query.Where("status = ?", common.RedemptionCodeStatusDisabled)
+		case strconv.Itoa(common.RedemptionCodeStatusUsed):
+			query = query.Where("status = ?", common.RedemptionCodeStatusUsed)
+		}
 	}
 
 	// Get total count
@@ -161,7 +183,7 @@ func Redeem(key string, userId int) (result *RedeemResult, err error) {
 	}
 	common.RandomSleep()
 	err = DB.Transaction(func(tx *gorm.DB) error {
-		err := tx.Set("gorm:query_option", "FOR UPDATE").Where(keyCol+" = ?", key).First(redemption).Error
+		err := lockForUpdate(tx).Where(keyCol+" = ?", key).First(redemption).Error
 		if err != nil {
 			return ErrInvalidCode
 		}
@@ -173,6 +195,19 @@ func Redeem(key string, userId int) (result *RedeemResult, err error) {
 		}
 		redemption.RedemptionType = NormalizeRedemptionType(redemption.RedemptionType)
 		result.RedemptionType = redemption.RedemptionType
+		updateResult := tx.Model(&Redemption{}).
+			Where("id = ? AND status = ?", redemption.Id, common.RedemptionCodeStatusEnabled).
+			Updates(map[string]interface{}{
+				"redeemed_time": common.GetTimestamp(),
+				"status":        common.RedemptionCodeStatusUsed,
+				"used_user_id":  userId,
+			})
+		if updateResult.Error != nil {
+			return updateResult.Error
+		}
+		if updateResult.RowsAffected == 0 {
+			return ErrCodeUsed
+		}
 		switch redemption.RedemptionType {
 		case RedemptionTypeSubscription:
 			if redemption.SubscriptionPlanId <= 0 {
@@ -196,11 +231,7 @@ func Redeem(key string, userId int) (result *RedeemResult, err error) {
 			}
 			result.Quota = redemption.Quota
 		}
-		redemption.RedeemedTime = common.GetTimestamp()
-		redemption.Status = common.RedemptionCodeStatusUsed
-		redemption.UsedUserId = userId
-		err = tx.Save(redemption).Error
-		return err
+		return nil
 	})
 	if err != nil {
 		if errors.Is(err, ErrInvalidCode) || errors.Is(err, ErrCodeUsed) || errors.Is(err, ErrCodeExpired) {
