@@ -109,6 +109,9 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
 
+    permissions:
+      id-token: write
+
     steps:
       - name: Resolve tag
         run: |
@@ -143,6 +146,14 @@ jobs:
             -t anheyu/new-api:latest \
             anheyu/new-api:latest-amd64 \
             anheyu/new-api:latest-arm64
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign manifests with cosign
+        run: |
+          cosign sign --yes anheyu/new-api:${TAG}
+          cosign sign --yes anheyu/new-api:latest
 
       - name: Manifest summary
         run: |
